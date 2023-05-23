@@ -1,6 +1,7 @@
 import React from "react";
 import Filter from "../../components/Filter";
 import Search from "../../components/Search";
+import Pagination from "../../components/Pagination";
 
 function Event() {
   return (
@@ -22,6 +23,7 @@ function Event() {
             </div>
           ))}
       </div>
+      <Pagination currentPage={"1"} totalPages={"5"} onPageChange={"2"} />
     </div>
   );
 }
