@@ -1,7 +1,8 @@
 import React from "react";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import Event from "./Event";
+import Event from "../parts/dashboard/Event";
+import Hero from "../parts/dashboard/Hero";
 
 function Dashboard() {
   const navigation = {
@@ -13,6 +14,7 @@ function Dashboard() {
   return (
     <>
       <Nav navigation={navigation} />
+      <Hero />
       <Event />
       <Footer />
     </>
