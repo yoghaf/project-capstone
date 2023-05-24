@@ -1,20 +1,11 @@
 import React from "react";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
+import Footer from "../parts/Footer";
+import Nav from "../parts/Nav";
 import Event from "../parts/dashboard/Event";
-import Hero from "../parts/dashboard/Hero";
-
 function Dashboard() {
-  const navigation = {
-    dashboard: ["Dashboard", "My Event", "Save", "Registered"],
-
-    visitor: ["Home", "About us", "Contact"],
-  };
-
   return (
     <>
-      <Nav navigation={navigation} />
-      <Hero />
+      <Nav />
       <Event />
       <Footer />
     </>

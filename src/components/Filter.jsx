@@ -1,17 +1,18 @@
 import React from "react";
 
-function Filter() {
+function Fiilter({ options, handleFilter }) {
   return (
-    <div className="flex items-center space-x-4">
-      <label className="font-medium">Filter:</label>
-      <select className=" text-white bg-slate-500 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-slate-500 focus:border-slate-500">
-        <option value="">Semua</option>
-        <option value="city1">city 1</option>
-        <option value="city2">city 2</option>
-        <option value="city3">city 3</option>
+    <div className="input-group mb-3">
+      <select className="form-select" onChange={(e) => handleFilter(e.target.value)}>
+        <option value="">All</option>
+        {options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
       </select>
     </div>
   );
 }
 
-export default Filter;
+export default Fiilter;
