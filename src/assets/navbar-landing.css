@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;900&display=swap');
 nav{
-    background-color:#9F9F9F;
+    background-color:rgb(159, 159, 159, 0.5);
 }
 
 nav .container{
@@ -11,6 +10,7 @@ nav .container{
     color:#3C227C;
     font-family:Poppins;
     font-weight:900;
+    font-size:35px;
 }
 
 .navbar-nav{
