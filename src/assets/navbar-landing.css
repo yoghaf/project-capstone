@@ -1,33 +1,36 @@
-nav{
-    background-color:rgb(159, 159, 159, 0.5);
+nav {
+  background-color: rgb(159, 159, 159, 0.5);
+}
+a {
+  text-decoration: none;
 }
 
-nav .container{
-    padding:10px;
+nav .container {
+  padding: 10px;
 }
 
-.navbar-brand{
-    color:#3C227C;
-    font-family:Poppins;
-    font-weight:900;
-    font-size:35px;
+.navbar-brand {
+  color: #3c227c;
+  font-family: Poppins;
+  font-weight: 900;
+  font-size: 35px;
 }
 
-.navbar-nav{
-    margin-left: auto;
-    font-family:Poppins;
-    font-weight:600;
+.navbar-nav {
+  margin-left: auto;
+  font-family: Poppins;
+  font-weight: 600;
 }
 
-.navbar-nav a{
-    margin: 0 10px;
+.navbar-nav a {
+  margin: 0 10px;
 }
 
-#login{
-    color:#3C227C;
+#login {
+  color: #3c227c;
 }
 
-#signup{
-    color:white;
-    background-color:#27374D;;
+#signup {
+  color: white;
+  background-color: #27374d;
 }
