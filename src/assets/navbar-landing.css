@@ -1,0 +1,33 @@
+nav{
+    background-color:rgb(159, 159, 159, 0.5);
+}
+
+nav .container{
+    padding:10px;
+}
+
+.navbar-brand{
+    color:#3C227C;
+    font-family:Poppins;
+    font-weight:900;
+    font-size:35px;
+}
+
+.navbar-nav{
+    margin-left: auto;
+    font-family:Poppins;
+    font-weight:600;
+}
+
+.navbar-nav a{
+    margin: 0 10px;
+}
+
+#login{
+    color:#3C227C;
+}
+
+#signup{
+    color:white;
+    background-color:#27374D;;
+}
