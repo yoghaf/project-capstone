@@ -1,18 +1,14 @@
 import "./App.css";
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import CollapsibleExample from "./component/navbar-landing";
-import { Jumbotron1, Jumbotron2, Jumbotron3, Jumbotron4 } from "./component/jumbotorn";
+import { Route, Routes } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
   return (
-    <div className="App">
-      <CollapsibleExample />
-      <Jumbotron1 />
-      <Jumbotron2 />
-      <Jumbotron3 />
-      <Jumbotron4 />
-    </div>
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+    </Routes>
   );
 }
 

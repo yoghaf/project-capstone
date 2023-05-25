@@ -1,11 +1,7 @@
-import Image1 from "../assets/image/Saly-3.png";
-import Image2 from "../assets/image/Image2.png";
-import Image3 from "../assets/image/Image3.png";
-import "../assets/landing-page.css";
 function Jumbotron1() {
   return (
     <section className="Jumbotron1">
-      <img className="gambar_jumbotron" src={Image1} alt="" />
+      <img className="gambar_jumbotron" src="./images/jumbotron/Saly-3.png" alt="" />
 
       <div className="description">
         <h2>Menjaga Lingkungan Bukan Angan-angan, tapi Tindakan</h2>
@@ -18,7 +14,7 @@ function Jumbotron1() {
 function Jumbotron2() {
   return (
     <section className="Jumbotron2">
-      <img className="gambar_jumbotron" src={Image2} alt="" />
+      <img className="gambar_jumbotron" src="./images/jumbotron/image2.png" alt="" />
 
       <div className="description2">
         <p>Trash Hunter menjadi media untuk mempromosikan kegiatan peduli lingkungan yang akan diselenggarakan.</p>
@@ -42,7 +38,7 @@ function Jumbotron3() {
 function Jumbotron4() {
   return (
     <section className="Jumbotron4">
-      <img className="gambar_jumbotron" src={Image3} alt="" />
+      <img className="gambar_jumbotron" src="./images/jumbotron/image3.png" alt="" />
 
       <div className="description4">
         <p>Mari bergabung dengan Trash Hunter</p>
