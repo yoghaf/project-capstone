@@ -13,10 +13,10 @@ function Event() {
       </div>
       <div className="row">
         <div className="col">
-          <Filter options={["Upcoming", "Past"]} handleFilter={(value) => console.log(value)} />
+          <Search handleSearch={(value) => console.log(value)} />
         </div>
         <div className="col">
-          <Search handleSearch={(value) => console.log(value)} />
+          <Filter options={["Upcoming", "Past"]} handleFilter={(value) => console.log(value)} />
         </div>
       </div>
       <div className="row">

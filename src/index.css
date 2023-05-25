@@ -1,3 +1,26 @@
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */
+.lato {
+  font-family: "Lato", sans-serif;
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+:root {
+  --custom-primary-color: #9f9f9f; /* Ganti dengan warna yang Anda inginkan */
+  --custom-secondary-color: #ffffff; /* Ganti dengan warna yang Anda inginkan */
+}
+.bg-color-primary {
+  background-color: var(--custom-primary-color);
+}
+.bg-color-secondary {
+  background-color: var(--custom-secondary-color);
+}
+.color-primary {
+  color: var(--custom-primary-color);
+}
+.color-secondary {
+  color: var(--custom-secondary-color) !important;
+}
