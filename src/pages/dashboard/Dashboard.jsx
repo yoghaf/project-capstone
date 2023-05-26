@@ -4,7 +4,7 @@ import Hero from "../../components/dashboard/Hero";
 import Footer from "../../components/dashboard/Footer";
 import { Outlet } from "react-router-dom";
 
-function DashboardRegistered() {
+function Dashboard() {
   return (
     <>
       <Navigation />
@@ -15,4 +15,4 @@ function DashboardRegistered() {
   );
 }
 
-export default DashboardRegistered;
+export default Dashboard;

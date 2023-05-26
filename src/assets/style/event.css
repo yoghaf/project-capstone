@@ -1,0 +1,21 @@
+.tittle-page{
+    text-align: center;
+    padding: 30px 0;
+    font-family: Poppins;
+    font-weight: 600;
+}
+
+.ms-4{
+    margin-top:25px;
+}
+
+.ms-4 img{
+    height:200px;
+    object-fit: cover;
+}
+
+.card-body a{
+    color: black;
+    text-align: center;
+    font-family:Lato;
+}

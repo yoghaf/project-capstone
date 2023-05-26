@@ -1,19 +1,18 @@
-import React from "react";
+import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 
-function Card({ image, title, description, link }) {
+function CardEvent({ image, title, description, link }) {
   return (
-    <div className="card" style={{ width: "18rem" }}>
-      <img src={image} className="card-img-top" alt="..." />
-      <div className="card-body">
-        <h5 className="card-title">{title}</h5>
-        <p className="card-text">{description}</p>
-        <Link to={link} className="btn btn-primary">
-          Go somewhere
-        </Link>
-      </div>
-    </div>
+    <Card className="ms-4 me-4 border">
+          <Card.Img variant="top" src={image} />
+          <Card.Body>
+            <Link to={link} >
+              <Card.Title>{title}</Card.Title>
+            </Link>
+            <Card.Text>{description}</Card.Text>
+          </Card.Body>
+    </Card>
   );
 }
 
-export default Card;
+export default CardEvent;

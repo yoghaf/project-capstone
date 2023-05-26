@@ -1,25 +1,15 @@
 import React from "react";
-import '../../assets/style/event.css';
 import CardEvent from "../../components/Card";
-import Filter from "../../components/Filter";
-import Search from "../../components/Search";
 
 function Event() {
   return (
     <div className="container">
       <div className="row">
         <div className="col-lg-12">
-          <h1 className="tittle-page">Event</h1>
+          <h1 className="tittle-page">Saved Event</h1>
         </div>
       </div>
-      <div className="row">
-        <div className="col">
-          <Search handleSearch={(value) => console.log(value)} />
-        </div>
-        <div className="col">
-          <Filter options={["Upcoming", "Past"]} handleFilter={(value) => console.log(value)} />
-        </div>
-      </div>
+
       <div className="row">
         <div className="row  row-gap-5 ">
           {Array.from({ length: 6 }).map((_, index) => (

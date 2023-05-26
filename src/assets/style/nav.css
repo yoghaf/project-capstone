@@ -1,0 +1,25 @@
+.nav-dashboard {
+  background-image: url(../images/content/pexels-emmet-128421.jpg)
+}
+
+.logo-dashboard {
+color: white;
+font-family: Poppins;
+font-weight: 900;
+font-size: 35px;
+}
+
+.links {
+margin-left: auto;
+font-family: Poppins;
+font-weight: 600;
+}
+
+.links a{
+  color: white;
+  margin: 10px 30px;
+}
+
+.links a:hover{
+  color: #000000;
+}
