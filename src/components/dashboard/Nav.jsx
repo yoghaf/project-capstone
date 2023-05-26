@@ -43,7 +43,7 @@ function Navigation({ handleRegisteredEventClick }) {
             <Link to="/dashboard/registeredevent">Registered</Link>
           </li>
           <li>
-            <Link to="/dashboard/logout">
+            <Link to="/login">
               <img src="./images/content/log-out.png" alt="" />
             </Link>
           </li>
@@ -69,7 +69,7 @@ function Navigation({ handleRegisteredEventClick }) {
               <Link to="/dashboard/registeredevent">Registered</Link>
             </li>
             <li>
-              <Link to="/dashboard/logout">
+              <Link to="/login">
                 <img src="./images/content/log-out.png" alt="" />
               </Link>
             </li>

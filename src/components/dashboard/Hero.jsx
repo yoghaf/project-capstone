@@ -8,7 +8,7 @@ function Hero() {
         <h1>Trash Hunter</h1>
         <p>Mulai Gerakan Peduli Lingkungan untuk Bumi yang Lebih Baik</p>
       </div>
-      <img src="./images/content/pexels-emmet-128421.jpg" alt="hero" className="" />
+      <img src="../../images/content/pexels-emmet-128421.jpg" alt="hero" className="" />
     </div>
   );
 }
