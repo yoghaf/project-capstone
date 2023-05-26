@@ -1,3 +1,5 @@
+import "../../assets/landing-page.css";
+import "../../assets/navbar-landing.css";
 function Jumbotron1() {
   return (
     <section className="Jumbotron1">

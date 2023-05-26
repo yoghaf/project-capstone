@@ -8,17 +8,10 @@ function Event() {
     <div className="container">
       <div className="row">
         <div className="col-lg-12">
-          <h1>Event</h1>
+          <h1>Registered Event</h1>
         </div>
       </div>
-      <div className="row">
-        <div className="col">
-          <Search handleSearch={(value) => console.log(value)} />
-        </div>
-        <div className="col">
-          <Filter options={["Upcoming", "Past"]} handleFilter={(value) => console.log(value)} />
-        </div>
-      </div>
+
       <div className="row">
         <div className="row  row-gap-5 ">
           {Array.from({ length: 6 }).map((_, index) => (

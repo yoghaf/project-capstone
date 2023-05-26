@@ -3,6 +3,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import "../../assets/landing-page.css";
+import "../../assets/navbar-landing.css";
 
 function CollapsibleExample() {
   return (

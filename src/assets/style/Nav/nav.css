@@ -1,0 +1,122 @@
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: none;
+}
+.nav-desktop {
+  background-color: #9f9f9f;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  position: sticky;
+  padding: 0 30px 0 30px;
+  height: 60px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 35;
+}
+.hamburger {
+  display: block;
+}
+.hamburger svg {
+  font-size: 2em;
+  color: #ffffff;
+}
+.logo a {
+  font-size: 2em;
+  font-weight: bold;
+}
+.nav-desktop ul {
+  display: none;
+}
+.nav-desktop li {
+  width: 110px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.nav-desktop li:hover {
+  background-color: #f2f1ec;
+  border-radius: 25px;
+}
+.nav-hidden {
+  width: 0;
+  background-color: #9f9f9f;
+  height: 100%;
+  position: fixed;
+  z-index: 40;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  font-size: 1em;
+}
+.close-button {
+  position: absolute;
+  color: #ffffff;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  top: 15px;
+  right: 15px;
+  font-size: 2em;
+  cursor: pointer;
+}
+.nav-hidden ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 20px;
+}
+.nav-hidden li {
+  list-style: none;
+  padding: 20px;
+  transition: 0.3s;
+  color: gray;
+  cursor: pointer;
+}
+.nav-hidden li:hover {
+  color: #000000;
+}
+.shadow-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 30;
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .hamburger {
+    display: none;
+  }
+  .nav-desktop {
+    height: 80px;
+  }
+  .nav-desktop ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+  }
+  .nav-desktop ul li {
+    margin-right: 20px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+}
