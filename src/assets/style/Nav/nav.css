@@ -36,6 +36,9 @@ a {
   font-size: 2em;
   font-weight: bold;
 }
+.logo a:hover {
+  color: #000000;
+}
 .nav-desktop ul {
   display: none;
 }
@@ -45,9 +48,12 @@ a {
   display: flex;
   justify-content: center;
 }
-.nav-desktop li:hover {
-  background-color: #f2f1ec;
+.nav-desktop li:not(:last-child):hover {
+  background-color: #ffffff;
   border-radius: 25px;
+}
+.nav-desktop li:not(:last-child):hover a {
+  color: #000000;
 }
 .nav-hidden {
   width: 0;

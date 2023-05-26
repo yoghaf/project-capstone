@@ -1,19 +1,18 @@
 import React from "react";
-
-import Footer from "../../components/dashboard/Footer";
-import Event from "../../parts/dashboard/Event";
 import Navigation from "../../components/dashboard/Nav";
 import Hero from "../../components/dashboard/Hero";
+import Footer from "../../components/dashboard/Footer";
+import { Outlet } from "react-router-dom";
 
-function Dashboard() {
+function DashboardRegistered() {
   return (
     <>
       <Navigation />
       <Hero />
-      <Event />
+      <Outlet />
       <Footer />
     </>
   );
 }
 
-export default Dashboard;
+export default DashboardRegistered;
