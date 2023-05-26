@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../assets/style/Nav/nav.css";
 import { buttonOpen, buttonClose, onSticky } from "../../assets/style/Nav/navAnimation";
 
-function Navigation({ handleRegisteredEventClick }) {
+function Navigation() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleNav = () => {
