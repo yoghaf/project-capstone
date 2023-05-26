@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&family=Poppins:wght@600;900&display=swap');
 @media screen and (max-width: 600px){
-    section{
+    .Jumbotron1, .Jumbotron2, .Jumbotron3, .Jumbotron4{
         padding: 40px ;
     }
     /*Section 1 */
@@ -62,7 +62,7 @@
 
 /* For tablets: */
 @media screen and (min-width: 600px){
-    section{
+    .Jumbotron1, .Jumbotron2, .Jumbotron3, .Jumbotron4{
         padding: 40px ;
     }
     /*Section 1 */
@@ -169,7 +169,7 @@
 
 @media only screen and (min-width: 1392px){
     /*Section 1 */
-    section{
+    .Jumbotron1, .Jumbotron2, .Jumbotron3, .Jumbotron4{
         padding: 40px 80px 100px 80px;
     }
 
@@ -270,6 +270,10 @@
     font-family: Poppins;
     font-weight:900;
     color:#4F4F4F;
+}
+
+.description3{
+    text-align:center;
 }
 /* END OF Section 3 */
 

@@ -28,9 +28,21 @@ nav .container {
 
 #login {
   color: #3c227c;
+  margin: auto 0;
+  margin-left:10px;
+  padding: 10px;
+}
+
+#login:hover{
+  color: white;
 }
 
 #signup {
   color: white;
   background-color: #27374d;
+}
+
+#signup:hover{
+  background-color: white;
+  color:black;
 }
