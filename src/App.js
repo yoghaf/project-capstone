@@ -9,6 +9,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import RegisteredEvent from "./parts/dashboard/RegisteredEvent";
 import Event from "./parts/dashboard/Event";
 import SaveEvent from "./parts/dashboard/SaveEvent";
+import News from "./parts/dashboard/News";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Route path="/dashboard/" element={<Dashboard />}>
         <Route index element={<Event />} />
         <Route path="registeredevent" element={<RegisteredEvent />} />
+        <Route path="news" element={<News />} />
         <Route path=":id/myevent" element={<Dashboard />} />
         <Route path="save" element={<SaveEvent />} />
       </Route>
