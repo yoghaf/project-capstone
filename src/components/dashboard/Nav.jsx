@@ -8,12 +8,12 @@ function Navigation() {
   return (
     <Navbar className="nav-dashboard" collapseOnSelect expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand className="logo-dashboard" to={"/dashboard"}>Trash Hunter</Navbar.Brand>
+        <Link className="logo-dashboard" to={"/dashboard"}>Trash Hunter</Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="links">
             
-            <Link to={"/dashboard"}>Dashboard</Link>
+            <Link to={"/dashboard/myevent"}>My Event</Link>
             <Link to={"/dashboard/save"}>Save</Link>
             <Link to={"/dashboard/registeredevent"}>Registered</Link>
             <Link to={"/login"}><img src="./images/content/log-out.png" alt="" /></Link> 

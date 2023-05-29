@@ -24,7 +24,7 @@ function Event() {
         <div className="row  row-gap-5 ">
           {Array.from({ length: 6 }).map((_, index) => (
             <div className="col-lg-4 " key={index}>
-              <CardEvent key={index} image="https://via.placeholder.com/500" title="Event Name" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum." link="/event/1" />
+              <CardEvent key={index} image="https://via.placeholder.com/500" title="Event Name" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum." link="/dashboard/1" />
             </div>
           ))}
         </div>
