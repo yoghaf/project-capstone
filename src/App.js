@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/dashboard/Dashboard";
 import RegisteredEvent from "./parts/dashboard/RegisteredEvent";
 import Event from "./parts/dashboard/Event";
@@ -15,7 +15,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Register />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/dashboard/" element={<Dashboard />}>
         <Route index element={<Event />} />
         <Route path="registeredevent" element={<RegisteredEvent />} />
