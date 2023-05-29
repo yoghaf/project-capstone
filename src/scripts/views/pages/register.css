@@ -58,44 +58,64 @@
   justify-content: center;
   padding: 10px;
 }
-.Form .TextField{
+.Form .TextSpace{
   padding: 10px;
 }
-.Form p .InputText {
-  width: 280px;
-}
 .Form .TextQuestion {
-  font-size: 15px;
+  font-size: 16px;
   padding: 0;
   width: 280px;
   text-align: left;
 }
 .Form .TextQuestion a {
   font-weight: 500;
+  padding: 12px;
 }
 .Form .InputText {
-  border: 1px solid #000000;
+  width: 100%;
+  min-height: 44px;
   text-decoration: none;
   padding: 10px 8px;
   padding-left: 15px;
-  font-size: 12px;
+  font-size: 16px;
+}
+.Form .InputField {
+  width: 280px;
+  border: 1px solid #000000;
+  padding: 0;
+}
+.Form .PasswordInputField{
+  display: flex; 
+  flex-direction: row;
+  align-items: center;
+  width: 280px;
+  border: 1px solid #000000;
+  padding: 0;
 }
 .Form legend {
   text-align: center;
   font-family: Georgia, serif;
   font-weight: 1000;
-  font-size: 20px;
+  font-size: 25px;
   padding: 20px;
 }
-.Form button {
+.Form .InputButtonSpace {
   padding: 20px;
 }
 .Form .InputButton {
   padding: 8px;
   width: 280px;
+  min-height: 44px;
   font-weight: 600;
   color: white;
   background-color: #27374D;
+  font-size: 20px;
+}
+#togglePassword {
+  height: 100%;
+}
+#inputPassword {
+  width: 90%;
 }
 
 

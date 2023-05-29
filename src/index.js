@@ -1,17 +1,20 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-
-import Register from './views/register/Register';
+import App from './scripts/views/app';
 
 import reportWebVitals from './reportWebVitals';
+import './index.css';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <Register />
-  </React.StrictMode>
-);
+const app = new App({
+  content: ReactDOM.createRoot(document.getElementById('root')),
+});
+
+window.addEventListener('hashchange', () => {
+  app.renderPage();
+});
+
+window.addEventListener('load', () => {
+  app.renderPage();
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
