@@ -24,3 +24,16 @@
 .color-secondary {
   color: var(--custom-secondary-color) !important;
 }
+
+* {
+    box-sizing: border-box;
+  }
+
+/* #root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    height: 100vh;
+} */
+
