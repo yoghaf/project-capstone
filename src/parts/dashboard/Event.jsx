@@ -46,6 +46,7 @@ function Event() {
         </div>
       </div>
       <div className="row">
+
           {fetchError && (<p>fetchError</p>)}
           {events && (
             <div className="row  row-gap-5 ">
@@ -54,8 +55,6 @@ function Event() {
                   <CardEvent key={event.id} event={event} />
                 </div>
               ))}
-            </div>
-          )}
       </div>
     </div>
   );
