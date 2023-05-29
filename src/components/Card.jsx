@@ -1,15 +1,15 @@
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 
-function CardEvent({ image, title, description, link }) {
+function CardEvent({ event }) {
   return (
     <Card className="ms-4 me-4 border">
-          <Card.Img variant="top" src={image} />
+          <Card.Img variant="top" src={event.image} />
           <Card.Body>
-            <Link to={link} >
-              <Card.Title>{title}</Card.Title>
+            <Link to={"/event/"+event.id} >
+              <Card.Title>{event.name}</Card.Title>
             </Link>
-            <Card.Text>{description}</Card.Text>
+            <Card.Text>{event.description}</Card.Text>
           </Card.Body>
     </Card>
   );
