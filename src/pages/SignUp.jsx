@@ -1,12 +1,17 @@
 import React from "react";
+import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import "../assets/style/signup.css"
 
 function SignUp() {
+  useEffect(() => {
+    SignUpScript();
+  }, []);
+
   return (
     <>
-      <div className="Title">
-      <h1>Trash Hunter</h1>
+    <div className="Title">
+      <h1><Link to={"/"}>Trash Hunter</Link></h1>
     </div>
     <div className="SpaceLayout"></div>
     <div className="Layout0">
@@ -16,18 +21,25 @@ function SignUp() {
         <form className="Form" action="register.php" method="POST">
           <fieldset>
           <legend>Create your account</legend>
-          <p className="TextField">
+          <div className="TextSpace">
+            <div className="InputField">
               <input className="InputText" type="text" name="username" placeholder="username" />
-          </p>
-          <p className="TextField">
+            </div>
+          </div>
+          <div className="TextSpace">
+            <div className="InputField">
               <input className="InputText" type="email" name="email" placeholder="email" />
-          </p>
-          <p className="TextField">
-              <input className="InputText" type="password" name="password" placeholder="password" />
-          </p>
-          <button>
+            </div>
+          </div>
+          <div className="TextSpace">
+            <div className="PasswordInputField">
+              <input id="inputPassword" className="InputText" type="password" name="password" placeholder="password" />
+              <img id="togglePassword" src="./images/eye-ic.svg" alt="toggle password" />
+            </div>
+          </div>
+          <div className="InputButtonSpace">
               <input className="InputButton" type="submit" name="submit" value="SIGN UP" />
-          </button>
+          </div>
           <p className="TextQuestion">Already have an account? <Link to={"/login"}>Log in</Link></p>
           </fieldset>
         </form>
@@ -38,5 +50,17 @@ function SignUp() {
     </>
   );
 }
+
+function SignUpScript() {
+  document.getElementById( "togglePassword" ).onclick = function() {
+    const x = document.getElementById("inputPassword");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+};
+}
+
 
 export default SignUp;

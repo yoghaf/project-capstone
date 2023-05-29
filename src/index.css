@@ -29,11 +29,18 @@
     box-sizing: border-box;
   }
 
-/* #root {
+
+/* 
+#root {
+>>>>>>> c2d8872c90945450b7baeabf5f112f76c7887a7d
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: left;
     height: 100vh;
+
 } */
+
+
+
 
