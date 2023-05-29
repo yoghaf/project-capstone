@@ -46,15 +46,16 @@ function Event() {
         </div>
       </div>
       <div className="row">
-
           {fetchError && (<p>fetchError</p>)}
           {events && (
             <div className="row  row-gap-5 ">
               {events.map(event=>(
                 <div className="col-lg-4 " key={event.id}>
-                  <CardEvent key={event.id} event={event} />
+                  <CardEvent key={event.id} image={event.image} title={event.name} description={event.description} link="/dashboard/1" />
                 </div>
               ))}
+            </div>
+          )}
       </div>
     </div>
   );

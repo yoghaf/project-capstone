@@ -12,7 +12,6 @@ function Navigation() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="links">
-            
             <Link to={"/dashboard/myevent"}>My Event</Link>
             <Link to={"/dashboard/save"}>Save</Link>
             <Link to={"/dashboard/registeredevent"}>Registered</Link>
