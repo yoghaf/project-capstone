@@ -5,6 +5,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link } from "react-router-dom";
 
 function Navigation() {
+  function handleLogout(){
+    sessionStorage.removeItem("token")
+  }
+
   return (
     <Navbar className="nav-dashboard" collapseOnSelect expand="lg" variant="dark">
       <Container>
@@ -15,7 +19,7 @@ function Navigation() {
             <Link to={"/dashboard/myevent"}>My Event</Link>
             <Link to={"/dashboard/save"}>Save</Link>
             <Link to={"/dashboard/registeredevent"}>Registered</Link>
-            <Link to={"/login"}><img src="./images/content/log-out.png" alt="" /></Link> 
+            <Link to={"/login"}><img src="./images/content/log-out.png" alt="" onClick={handleLogout}/></Link> 
           </Nav>
         </Navbar.Collapse>
       </Container>
