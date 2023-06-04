@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function EventRegis() {
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate("/dashboard/registeredevent");
+    navigate("/dashboard");
   };
   return (
     <>
@@ -12,7 +12,7 @@ function EventRegis() {
         <div className="FormLayout">
           <div className="HeadForm">
             <button className="BackButton" onClick={handleBack}>
-              <img src="/images/content/back-arrow.png" alt="" />
+              <img src="/images/content/material-symbols_arrow-back-ios-rounded.svg" alt="" />
             </button>
             <div>Rise Togheter Campaign Volunter</div>
           </div>
@@ -43,7 +43,7 @@ function EventRegis() {
                 <input type="file" className="form-control" id="exampleFormControlInput1" />
               </div>
               <div className="ButtonSubmit">
-                <input type="submit" value="Daftar" />
+                <input type="submit" value="DAFTAR" />
               </div>
             </form>
           </div>
