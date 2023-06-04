@@ -1,0 +1,67 @@
+.Container {
+  padding: 2em;
+}
+button {
+  border: none;
+  text-decoration: none;
+}
+button img {
+  width: 1.5em;
+}
+.FormLayout {
+  background-color: #eeeeee;
+  border-radius: 15px;
+}
+.HeadForm {
+  display: flex;
+  gap: 1em;
+  font-weight: bold;
+  font-size: large;
+  align-items: center;
+}
+.FormControl {
+  margin-top: 1.2em;
+  border-top: #b6b6b6 solid 1px;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  gap: 1em;
+  padding: 1em 0;
+}
+.ButtonSubmit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.2em;
+}
+.ButtonSubmit input {
+  background-color: #acacac;
+  border-radius: 10px;
+  color: white;
+  width: 50%;
+  height: 35px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.ButtonSubmit input:hover {
+  background-color: #b6b6b6;
+}
+@media screen and (min-width: 600px) {
+  .Container {
+    padding: 4em;
+  }
+  .FormLayout {
+    width: 70vh;
+    margin: auto;
+  }
+  .HeadForm {
+    font-size: x-large;
+  }
+  .FormControl {
+    margin-top: 2em;
+  }
+  .ButtonSubmit {
+    margin-top: 2em;
+  }
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import '../../assets/style/event.css';
+import "../../assets/style/event.css";
 import CardEvent from "../../components/Card";
 import Filter from "../../components/Filter";
 import Search from "../../components/Search";
@@ -7,28 +7,27 @@ import supabase from "../../config/supabaseClient";
 import { useEffect, useState } from "react";
 
 function Event() {
-  const [fetchError, setFetchError]=useState(null)
-  const [events, setEvents]=useState(null)
+  const [fetchError, setFetchError] = useState(null);
+  const [events, setEvents] = useState(null);
 
-  useEffect(()=>{
-    const fetchEvent = async()=>{
-      const{data, error} = await supabase
-      .from('event')
-      .select()
+  useEffect(() => {
+    const fetchEvent = async () => {
+      const { data, error } = await supabase.from("event").select();
 
-      if(error){
-        setFetchError('Could not fetch the events')
-        setEvents(null)
-        console.log(error)
+      if (error) {
+        setFetchError("Could not fetch the events");
+        setEvents(null);
+        console.log(error);
       }
-      if(data){
-        setEvents(data)
-        setFetchError(null)
-      }
-    }
+      if (data) {
+        setEvents(data);
 
-    fetchEvent()
-  })
+        setFetchError(null);
+      }
+    };
+
+    fetchEvent();
+  });
 
   return (
     <div className="container">
@@ -46,16 +45,16 @@ function Event() {
         </div>
       </div>
       <div className="row">
-          {fetchError && (<p>fetchError</p>)}
-          {events && (
-            <div className="row  row-gap-5 ">
-              {events.map(event=>(
-                <div className="col-lg-4 " key={event.id}>
-                  <CardEvent key={event.id} image={event.image} title={event.name} description={event.description} link="/dashboard/1" />
-                </div>
-              ))}
-            </div>
-          )}
+        {fetchError && <p>fetchError</p>}
+        {events && (
+          <div className="row  row-gap-5 ">
+            {events.map((event) => (
+              <div className="col-lg-4 " key={event.id}>
+                <CardEvent key={event.id} image={event.image} title={event.name} description={event.description} link={`/dashboard/event/${event.id}`} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
