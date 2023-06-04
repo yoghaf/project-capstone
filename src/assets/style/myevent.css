@@ -1,0 +1,73 @@
+/* fonts */
+@font-face {
+  font-family: "Bold";   /*Can be any text*/
+  src: local("NunitoBold"),
+    url("../fonts/Nunito-Bold.ttf") format("truetype");
+}
+
+.card-search {
+  display: flex;
+  align-items: center;
+}
+
+.search-box {
+  margin-left: 265px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.search-icon {
+  color: #888;
+  margin-right: 4px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  width: 200px;
+  font-family: 'Bold';
+}
+
+.button{
+  margin-left: 33%;
+}
+
+.container-table{
+  width: 65%;
+  margin: 0%;
+  border-collapse: collapse;
+  border: 0px solid #FFFFFF ;
+  margin-top: 10px;
+  text-align: center;
+  background-color:#EEEEEE;
+}
+.container-table td {
+  padding: 20px;
+}
+
+.header{
+  background-color: #27374D;
+  color: #FFFFFF;
+  text-align: center;
+  font-family: Nunito;
+}
+
+.header th{
+  padding: 20px;
+}
+
+.rowsearch{
+  display: flex;
+  background-color: pink;
+
+}
+
+/* form add new event */
+.title-addevent{
+  font-size: 36px;
+  text-align: center;
+}
