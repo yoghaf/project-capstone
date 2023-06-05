@@ -1,10 +1,11 @@
 import React from "react";
 import "../../assets/style/eventregis.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 function EventRegis() {
+  const { id } = useParams();
   const navigate = useNavigate();
-  const handleBack = () => {
-    navigate("/dashboard");
+  const handleBack = (id) => {
+    navigate(`/dashboard/event/${id}`);
   };
   return (
     <>
@@ -12,7 +13,7 @@ function EventRegis() {
         <div className="FormContainer">
           <div className="FormLayout">
             <div className="HeadForm">
-              <button className="BackButton" onClick={handleBack}>
+              <button className="BackButton" onClick={() => handleBack(id)}>
                 <img src="/images/content/material-symbols_arrow-back-ios-rounded.svg" alt="" />
               </button>
               <div>Rise Togheter Campaign Volunter</div>
