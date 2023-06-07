@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
@@ -146,7 +147,7 @@ function MyEvent() {
               {data.map((item, i) => {
                 return (
                   <tr>
-                    <td align="left">{item.activity}</td>
+                    <td align="left"><Link  className="text-black" to={"/dashboard/myevent/"+item.id}>{item.activity}</Link></td>
                     <td>{item?.audience}</td>
                     {item?.status == "live" ? (
                       <td style={{

@@ -61,17 +61,25 @@
   background-position: left;
   padding: 0px 15px;
 }
-.list-ol p {
+
+.location-image{
+  background-image: url(../images/content/map-pin.svg);
+  background-repeat: no-repeat;
+  background-position: left;
+  padding: 0px 15px;
+}
+.list-ol p, #textLink {
   font-size: 14px;
   text-align: left;
   margin-bottom: 4px;
 }
-.list-ol li {
+.list-ol li , #link{
   margin-left: 20px;
 }
-.list-ol li p {
+.list-ol li p, #link {
   font-weight: 100;
 }
+
 .button-register {
   font-size: 20px;
   color: white;
