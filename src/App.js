@@ -12,6 +12,7 @@ import SaveEvent from "./parts/dashboard/SaveEvent";
 import MyEvent from "./parts/dashboard/MyEvent";
 import Detail from "./parts/dashboard/Detail";
 import EventRegis from "./parts/dashboard/EventRegis";
+import DetailMyEvent from "./parts/dashboard/DetailMyEvent";
 
 function App() {
   const [token, setToken] = useState(false);
@@ -37,6 +38,7 @@ function App() {
           <Route index element={<Event />} />
           <Route path="registeredevent" element={<RegisteredEvent />} />
           <Route path="myevent" element={<MyEvent />} />
+          <Route path="myevent/:id" element={<DetailMyEvent />} />
           <Route path="save" element={<SaveEvent />} />
           <Route path="event/:id" element={<Detail />} />
           <Route path="eventregister/:id" element={<EventRegis />} />
