@@ -107,8 +107,8 @@ function MyEvent() {
 
   return (
     <div>
-      <Row className="mt-4">
-        <Col xs={12} md={8}>
+      <Row className="seacrhAdd mt-4">
+        <Col  className="me-auto ms-0" xs={10} md={10}>
           <div className="card-search">
             <Form className="search-box">
               <CiSearch className="search-icon" />
@@ -122,9 +122,9 @@ function MyEvent() {
             </Form>
           </div>
         </Col>
-        <Col xs={6} md={4}>
+        <Col className="ms-auto me-0" xs={1} md={1}>
           <Button
-            className="button"
+            className="buttonAdd"
             size="sm"
             variant="success"
             onClick={() => setShowModalAdd(true)}
@@ -136,15 +136,13 @@ function MyEvent() {
       <center>
         <div className="container-table">
           <Table bordered hover style={{fontFamily: 'Bold'}}>
-            <thead>
+            <tbody>
               <tr className="header" style={{fontFamily: 'Bold'}}>
                 <th>KEGIATAN</th>
                 <th>PESERTA</th>
                 <th>STATUS</th>
                 <th>AKSI</th>
               </tr>
-            </thead>
-            <tbody>
               {data.map((item, i) => {
                 return (
                   <tr>
@@ -161,7 +159,7 @@ function MyEvent() {
                       }}>SELESAI</td>
                     )}
                     <td>
-                      <Button
+                      <Button className="deleteButton"
                         style={{fontFamily: 'Bold'}}
                         variant="danger"
                         onClick={() => {
@@ -253,14 +251,14 @@ function MyEvent() {
                 <Form.Label className="w-25">Regitration</Form.Label>
                 <div className="d-flex align-items-center flex-grow-1">
                   <Form.Control
-                    className="w-45"
+                    className="formDate w-45"
                     type="date"
                     value={dateRegisStart == null ? new Date() : dateRegisStart}
                     onChange={(v) => setDateRegisStart(v.target.value)}
                   />
                   <p style={{ marginLeft: 16, marginRight: 16 }}>-</p>
                   <Form.Control
-                    className="w-45"
+                    className="formDate w-45"
                     type="date"
                     value={dateRegisEnd == null ? new Date() : dateRegisEnd}
                     onChange={(v) => setDateRegisEnd(v.target.value)}
@@ -272,14 +270,14 @@ function MyEvent() {
                 <Form.Label className="w-25">Date</Form.Label>
                 <div className="d-flex align-items-center flex-grow-1">
                   <Form.Control
-                    className="w-45"
+                    className="formDate w-45"
                     type="date"
                     value={startDate}
                     onChange={(v) => setStartDate(v.target.value)}
                   />
                   <p style={{ marginLeft: 16, marginRight: 16 }}>-</p>
                   <Form.Control
-                    className="w-45"
+                    className="formDate w-45"
                     type="date"
                     value={endData}
                     onChange={(v) => setEndDate(v.target.value)}
