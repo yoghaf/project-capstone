@@ -1,45 +1,12 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect,useState } from 'react';
+import { Link } from "react-router-dom";
+import { useEffect } from 'react';
 import "../assets/style/signup.css"
-import supabase from "../config/supabaseClient";
 
-function Login({setToken}) {
-  let navigate = useNavigate()
-
-  const [formData, setFormData] = useState({
-    email:"", password:""
-  })
-
-  useEffect(() => {
-      LoginScript();
-  }, []);
-
-  function handleChange(event){
-    setFormData((prevFormData)=>{
-      return{
-        ...prevFormData,
-        [event.target.name]:event.target.value
-      }
-    })
-  }
-  async function handleSubmit(e){
-    e.preventDefault()
-    try {
-      const {data, error} = await supabase.auth.signInWithPassword({
-        email:formData.email,
-        password:formData.password,
-      })
-
-      if(error) throw error
-      console.log(data)
-      setToken(data)
-      navigate("/dashboard")
-      // alert("Check your email for verification link")
-    } catch (error) {
-      alert(error)
-    }
-  }
+function Login() {
+    useEffect(() => {
+        LoginScript();
+      }, []);
 
   return (
     <>
@@ -51,17 +18,17 @@ function Login({setToken}) {
       <img src="./images/img-login.png" className="ImageSmall" alt=""></img>
       <div className="FormLayout">
 
-        <form className="Form" onSubmit={handleSubmit} method="POST">
+        <form className="Form" action="login.php" method="POST">
           <fieldset>
           <legend>Welcome back</legend>
           <div className="TextSpace">
             <div className="InputField">
-              <input className="InputText" type="text" name="email" placeholder="email" onChange={handleChange}/>
+              <input className="InputText" type="text" name="username" placeholder="username" />
             </div>
           </div>
           <div className="TextSpace">
             <div className="PasswordInputField">
-              <input id="inputPassword" className="InputText" type="password" name="password" placeholder="password" onChange={handleChange}/>
+              <input id="inputPassword" className="InputText" type="password" name="password" placeholder="password" />
               <img id="togglePassword" src="./images/eye-ic.svg" alt="toggle password" />
             </div>
           </div>

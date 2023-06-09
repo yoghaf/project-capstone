@@ -1,34 +1,10 @@
 import React from "react";
-import "../../assets/style/event.css";
+import '../../assets/style/event.css';
 import CardEvent from "../../components/Card";
 import Filter from "../../components/Filter";
 import Search from "../../components/Search";
-import supabase from "../../config/supabaseClient";
-import { useEffect, useState } from "react";
 
 function Event() {
-  const [fetchError, setFetchError] = useState(null);
-  const [events, setEvents] = useState(null);
-
-  useEffect(() => {
-    const fetchEvent = async () => {
-      const { data, error } = await supabase.from("event").select();
-
-      if (error) {
-        setFetchError("Could not fetch the events");
-        setEvents(null);
-        console.log(error);
-      }
-      if (data) {
-        setEvents(data);
-
-        setFetchError(null);
-      }
-    };
-
-    fetchEvent();
-  });
-
   return (
     <div className="container">
       <div className="row">
@@ -45,16 +21,13 @@ function Event() {
         </div>
       </div>
       <div className="row">
-        {fetchError && <p>fetchError</p>}
-        {events && (
-          <div className="row  row-gap-5 ">
-            {events.map((event) => (
-              <div className="col-lg-4 " key={event.id}>
-                <CardEvent key={event.id} image={event.image} title={event.name} description={event.description} link={`/dashboard/event/${event.id}`} />
-              </div>
-            ))}
-          </div>
-        )}
+        <div className="row  row-gap-5 ">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div className="col-lg-4 " key={index}>
+              <CardEvent key={index} image="https://via.placeholder.com/500" title="Event Name" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum." link="/event/1" />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
