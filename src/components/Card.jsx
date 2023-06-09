@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 
-function CardEvent({ image, title, description, link }) {
+function CardEvent({ image, title, description, link}) {
   return (
     <Card className="ms-4 me-4 border">
           <Card.Img variant="top" src={image} />

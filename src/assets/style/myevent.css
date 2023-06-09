@@ -1,0 +1,206 @@
+/* fonts */
+@font-face {
+  font-family: "Bold";   /*Can be any text*/
+  src: local("NunitoBold"),
+    url("../fonts/Nunito-Bold.ttf") format("truetype");
+}
+@media screen and (min-width: 320px){
+  .search-input {
+    width: 10px;
+  }
+
+  .formDate{
+    width:85px;
+    font-size:10px;
+    padding:5px;
+  }
+
+  .seacrhAdd{
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .container-table{
+    width: 80%;
+    margin-top: 20px;
+    font-size :15px;
+  }
+
+  .container-table td {
+    padding: 10px;
+  }
+
+  .header th{
+    padding: 10px;
+  }
+
+  .title-addevent{
+    font-size: 36px;
+  }
+  
+  .deleteButton{
+    width: 80px;
+    font-size: 10px;
+  }
+}
+
+/* @media screen and (max-width: 600px){
+  .search-input {
+    width: 200px;
+  }
+
+  .formDate{
+    width:120px;
+    font-size:12px;
+  }
+
+  .seacrhAdd{
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .container-table{
+    width: 80%;
+    margin-top: 20px;
+    font-size :12px;
+  }
+
+  .container-table td {
+    padding: 10px;
+  }
+
+  .header th{
+    padding: 10px;
+  }
+
+  .title-addevent{
+    font-size: 36px;
+  }
+  
+  .deleteButton{
+    width: 80px;
+    font-size: 10px;
+  }
+} */
+
+@media screen and (min-width: 418px){
+  .search-box {
+    width:250px;
+  }
+
+  .search-input {
+    width: 200px;
+  }
+
+  .seacrhAdd{
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .container-table{
+    width: 80%;
+    margin-top: 20px;
+    font-size :15px;
+  }
+
+  .container-table td {
+    padding: 10px;
+  }
+
+  .header th{
+    padding: 10px;
+  }
+
+  .title-addevent{
+    font-size: 36px;
+  }
+  
+  .deleteButton{
+    width: 80px;
+    font-size: 10px;
+  }
+}
+
+@media only screen and (min-width: 1064px){
+  .container-table, .seacrhAdd{
+    width: 70%;
+  }
+
+  .container-table td {
+    padding: 20px;
+  }
+
+  .header th{
+    padding: 20px;
+  }
+
+  .title-addevent{
+    font-size: 36px;
+  }
+}
+
+@media only screen and (min-width: 1392px){
+  .container-table, .seacrhAdd{
+    width: 65%;
+  }
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.search-icon {
+  color: #888;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  width: 200px;
+  font-family: 'Bold';
+}
+
+.buttonAdd{
+  item-align: right;
+}
+
+.container-table{
+  border-collapse: collapse;
+  border: 0px solid #FFFFFF ;
+  text-align: center;
+  background-color:#EEEEEE;
+}
+
+.header{
+  background-color: #27374D;
+  color: #FFFFFF;
+  text-align: center;
+  font-family: Nunito;
+}
+
+
+.rowsearch{
+  display: flex;
+  background-color: pink;
+}
+
+/* form add new event */
+.title-addevent{
+  text-align: center;
+}
+
+table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+table tbody {
+  display: table;
+  width: 100%;
+}
