@@ -5,14 +5,17 @@ import supabase from "../../config/supabaseClient";
 
 function Detail() {
   const [fetchError, setFetchError] = useState(null);
-
+  const [like, setLike] = useState(false);
   const [event, setEvent] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+  let data_login = JSON.parse(sessionStorage.getItem("token"));
+  
   useEffect(() => {
     const fetchEvent = async () => {
-      const { data, error } = await supabase.from("event").select().eq("id", id);
-
+      const  event_liked  = await supabase.from("save").select(`id_event`).eq("id_akun", data_login.session.user.id);
+      const { data, error } = await supabase.from("event").select().eq("id_event", id);
+      
       if (error) {
         setFetchError("Could not fetch the events");
         setEvent(null);
@@ -20,15 +23,38 @@ function Detail() {
       }
       if (data) {
         setEvent(data);
-
+        event_liked.data.map((n)=>{
+          if(n.id_event === event[0].id_event){
+            setLike(true)
+            console.log(like);
+          };
+        })
+        // console.log(event_liked.data)
         setFetchError(null);
       }
+
+      
+
     };
 
     fetchEvent();
   }, [id]);
+
   const handleClick = (id) => {
     navigate(`/dashboard/eventregister/${id}`);
+  };
+
+  const handleBokmark = (like) => {
+    if(like){
+      const deleteSave = async () =>{await supabase.from('save').delete().eq('id', 1)} 
+      deleteSave();
+      setLike(false);
+    }
+    if(!like){
+      const addSave = async () => {await supabase.from('save').insert({ id_event: id , id_akun: data_login.session.user.id })};
+      addSave();
+      setLike(true)
+    }
   };
 
   return (
@@ -84,7 +110,8 @@ function Detail() {
                     </button>
                   </div>
                   <div className="button-area" style={{ padding: "5px", width: "10%" }}>
-                    <button id="bookmark" className="text button-register button-bookmark"></button>
+                    {like?<button id="bookmarked" className="text button-register button-bookmark" onClick={handleBokmark(like)}></button>
+                    :<button id="bookmark" className="text button-register button-bookmark"  onClick={() =>handleBokmark(like)}></button>}
                   </div>
                 </div>
               </div>
