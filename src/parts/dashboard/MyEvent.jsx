@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import Alert from "react-bootstrap/Alert";
+import { Link } from "react-router-dom";
+
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -11,10 +11,14 @@ import Table from "react-bootstrap/Table";
 import { BsPlus } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { LuTrash } from "react-icons/lu";
+import "../../assets/fonts/Nunito-Bold.ttf";
 import "../../assets/style/myevent.css";
-import '../../assets/fonts/Nunito-Bold.ttf'
+import supabase from "../../config/supabaseClient";
 
 function MyEvent() {
+  // state user id
+  const [userId, setUserId] = useState(null);
+  // state modal show
   const [modalShow, setModalShow] = useState(false);
   // state handle id
   const [handleId, setHandleId] = useState(null);
@@ -34,7 +38,7 @@ function MyEvent() {
   const [description, setDescription] = useState("");
   // state city
   const [city, setCity] = useState("");
-  const [cities, setCities] = useState([
+  const cities = [
     {
       id: 1,
       title: "Bogor",
@@ -47,50 +51,27 @@ function MyEvent() {
       id: 3,
       title: "Bandung",
     },
-  ]);
+  ];
+  // const [cities, setCities] = useState([
+  //   {
+  //     id: 1,
+  //     title: "Bogor",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Jakarta",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Bandung",
+  //   },
+  // ]);
   // state location
   const [location, setLocation] = useState("");
   // state link group
   const [linkGroup, setLinkGroup] = useState("");
-
-  const [data, setData] = useState([
-    {
-      id: 1,
-      activity: "Rise Together Campaign Volunteer",
-      audience: 5,
-      status: "live",
-    },
-    {
-      id: 2,
-      activity: "Rise Together Campaign Volunteer",
-      audience: 5,
-      status: "done",
-    },
-    {
-      id: 3,
-      activity: "Rise Together Campaign Volunteer",
-      audience: 5,
-      status: "done",
-    },
-    {
-      id: 4,
-      activity: "Rise Together Campaign Volunteer",
-      audience: 5,
-      status: "live",
-    },
-    {
-      id: 5,
-      activity: "Rise Together Campaign Volunteer",
-      audience: 5,
-      status: "live",
-    },
-    {
-      id: 6,
-      activity: "Rise Together Campaign Volunteer",
-      audience: 5,
-      status: "live",
-    },
-  ]);
+  // state main data my event
+  const [data, setData] = useState([]);
 
   // handle save event
   const handleSaveEvent = () => {
@@ -106,10 +87,48 @@ function MyEvent() {
     setShowModalAdd(false);
   };
 
+  useEffect(() => {
+    async function getSession() {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        setUserId(data?.session?.user?.id)
+        handleGetMyEvent(data?.session?.user?.id);
+      } catch (error) {
+        console.log("error get session");
+      }
+    }
+
+    getSession();
+  });
+
+  // handle get data
+  const handleGetMyEvent = async (userId) => {
+    const { data, error } = await supabase
+      .from("event")
+      .select("*")
+      .eq("id_akun", userId);
+
+    if (error) {
+      setData([]);
+      console.log(error);
+    }
+    if (data) {
+      setData(data);
+    }
+  };
+
+  // handle delete data
+  const handleDeleteMyEvent =  async () => {
+    const { error } = await supabase.from("event").delete().eq("id", handleId);
+    handleGetMyEvent(userId)
+    setModalShow(false);
+    setHandleId(null);
+  };
+
   return (
     <div>
       <Row className="seacrhAdd mt-4">
-        <Col  className="me-auto ms-0" xs={10} md={10}>
+        <Col className="me-auto ms-0" xs={10} md={10}>
           <div className="card-search">
             <Form className="search-box">
               <CiSearch className="search-icon" />
@@ -135,48 +154,70 @@ function MyEvent() {
         </Col>
       </Row>
       <center>
-        <div className="container-table">
-          <Table bordered hover style={{fontFamily: 'Bold'}}>
-            <tbody>
-              <tr className="header" style={{fontFamily: 'Bold'}}>
-                <th>KEGIATAN</th>
-                <th>PESERTA</th>
-                <th>STATUS</th>
-                <th>AKSI</th>
-              </tr>
-              {data.map((item, i) => {
-                return (
-                  <tr>
-                    <td align="left"><Link  className="text-black" to={"/dashboard/myevent/"+item.id}>{item.activity}</Link></td>
-                    <td>{item?.audience}</td>
-                    {item?.status == "live" ? (
-                      <td style={{
-                        color: '#52AD32',
-                        fontFamily: 'Bold'
-                      }}>BERLANGSUNG</td>
-                    ) : (
-                      <td style={{
-                        color: '#AD3232'
-                      }}>SELESAI</td>
-                    )}
-                    <td>
-                      <Button className="deleteButton"
-                        style={{fontFamily: 'Bold'}}
-                        variant="danger"
-                        onClick={() => {
-                          setHandleId(i);
-                          setModalShow(true);
-                        }}
-                      >
-                        DELETE
-                      </Button>{" "}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </div>
+        {data == [] ? (
+          <Card className="w-25 mt-4 mb-4">
+            <Card.Body>Tidak ada data</Card.Body>
+          </Card>
+        ) : (
+          <div className="container-table">
+            <Table bordered hover style={{ fontFamily: "Bold" }}>
+              <tbody>
+                <tr className="header" style={{ fontFamily: "Bold" }}>
+                  <th>KEGIATAN</th>
+                  <th>PESERTA</th>
+                  <th>STATUS</th>
+                  <th>AKSI</th>
+                </tr>
+                {data.map((item, i) => {
+                  return (
+                    <tr key={i}>
+                      <td align="left">
+                        <Link
+                          className="text-black"
+                          to={"/dashboard/myevent/" + item.id}
+                        >
+                          {item.name}
+                        </Link>
+                      </td>
+                      <td>{item?.audience}</td>
+                      {item?.status === "live" ? (
+                        <td
+                          style={{
+                            color: "#52AD32",
+                            fontFamily: "Bold",
+                          }}
+                        >
+                          BERLANGSUNG
+                        </td>
+                      ) : (
+                        <td
+                          style={{
+                            color: "#AD3232",
+                          }}
+                        >
+                          SELESAI
+                        </td>
+                      )}
+                      <td>
+                        <Button
+                          className="deleteButton"
+                          style={{ fontFamily: "Bold" }}
+                          variant="danger"
+                          onClick={() => {
+                            setHandleId(item?.id);
+                            setModalShow(true);
+                          }}
+                        >
+                          DELETE
+                        </Button>{" "}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </div>
+        )}
       </center>
 
       {/* modal delete */}
@@ -194,12 +235,14 @@ function MyEvent() {
           <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ background: "#F45252" }}>
-          <h5 style={{ textAlign: "center", color: "white", fontFamily: 'Bold' }}>
+          <h5
+            style={{ textAlign: "center", color: "white", fontFamily: "Bold" }}
+          >
             Apakah anda yakin ingin menghapus event ini ?
           </h5>
           <div
             style={{
-              fontFamily: 'Bold',
+              fontFamily: "Bold",
               justifyContent: "center",
               display: "flex",
               alignItems: "center",
@@ -208,13 +251,7 @@ function MyEvent() {
             <Button
               variant="light"
               size="sm"
-              onClick={() => {
-                let newData = [...data]
-                newData.splice(handleId, 1)
-                setData(newData)
-                setModalShow(false);
-                setHandleId(null);
-              }}
+              onClick={() => handleDeleteMyEvent()}
             >
               Ya
             </Button>{" "}
@@ -235,8 +272,10 @@ function MyEvent() {
         <Modal.Body>
           {/* form add event */}
           <div>
-            <p className="title-addevent" style={{fontFamily: 'Bold'}}>ADD NEW EVENT</p>
-            <Form style={{fontFamily: 'Bold'}}>
+            <p className="title-addevent" style={{ fontFamily: "Bold" }}>
+              ADD NEW EVENT
+            </p>
+            <Form style={{ fontFamily: "Bold" }}>
               {/* name event */}
               <Form.Group className="d-flex align-items-center mb-2 mt-2">
                 <Form.Label className="w-25">Name of Event</Form.Label>
@@ -318,7 +357,11 @@ function MyEvent() {
                 >
                   <option>Select city</option>
                   {cities.map((item, i) => {
-                    return <option value={item?.title}>{item?.title}</option>;
+                    return (
+                      <option key={i} value={item?.title}>
+                        {item?.title}
+                      </option>
+                    );
                   })}
                 </Form.Select>
               </Form.Group>
