@@ -1,7 +1,30 @@
 import React from "react";
 import CardEvent from "../../components/Card";
+import supabase from "../../config/supabaseClient";
+import { useEffect, useState } from "react";
 
 function Event() {
+  const [fetchError, setFetchError] = useState(null);
+  const [events, setEvents] = useState(null);
+  let data_login = JSON.parse(sessionStorage.getItem("token"));
+  useEffect(() => {
+    const fetchEvent = async () => {
+      const { data, error } = await supabase.from("save").select(`id_event, event ( id_event, name,image, description )`).eq("id_akun", data_login.session.user.id)
+
+      if (error) {
+        setFetchError("Could not fetch the events");
+        setEvents(null);
+        console.log(error);
+      }
+      if (data) {
+        setEvents(data);
+        setFetchError(null);
+      }
+    };
+
+    fetchEvent();
+  });
+
   return (
     <div className="container">
       <div className="row">
@@ -12,9 +35,10 @@ function Event() {
 
       <div className="row">
         <div className="row  row-gap-5 ">
-          {Array.from({ length: 6 }).map((_, index) => (
-            <div className="col-lg-4 " key={index}>
-              <CardEvent key={index} image="https://via.placeholder.com/500" title="Event Name" description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum." link="/dashboard/1" />
+          {!events? <p>Tidak ada event yang disimpan</p>
+          :events.map((event) => (
+            <div className="col-lg-4 " key={event.event.id_event}>
+              <CardEvent key={event.event.id_event} image={event.event.image} title={event.event.name} description={event.event.description} link={`/dashboard/event/${event.event.id_event}`} />
             </div>
           ))}
         </div>

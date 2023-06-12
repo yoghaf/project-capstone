@@ -108,9 +108,16 @@
 }
 
 .button-bookmark {
-  background-image: url(../images/content/material-symbols_bookmark-add.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 70%;
   padding: 23px;
+}
+
+#bookmarked{
+  background-image: url(../images/content/material-symbols_bookmark-add.svg);
+}
+
+#bookmark{
+  background-image: url(../images/content/material-symbols_bookmark.svg);
 }

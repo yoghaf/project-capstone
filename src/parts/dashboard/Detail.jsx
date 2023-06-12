@@ -5,12 +5,16 @@ import supabase from "../../config/supabaseClient";
 
 function Detail() {
   const [fetchError, setFetchError] = useState(null);
-
+  const [like, setLike] = useState(false);
   const [event, setEvent] = useState(null);
+  const [id_save, setIdSave] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
+  let data_login = JSON.parse(sessionStorage.getItem("token"));
+  
   useEffect(() => {
     const fetchEvent = async () => {
+      const  event_liked  = await supabase.from("save").select(`id_event, id_save`).eq("id_akun", data_login.session.user.id);
       const { data, error } = await supabase.from("event").select().eq("id_event", id);
 
       if (error) {
@@ -19,14 +23,61 @@ function Detail() {
         console.log(error);
       }
       if (data) {
-        setEvent(data);
-
+        setEvent(data)
+        if(event_liked){
+          event_liked.data.map((liked) => {
+            if(liked.id_event === data[0].id_event){
+              setLike(true);
+              setIdSave(liked.id_save)
+              console.log(like);
+            };
+          })
+        }
         setFetchError(null);
       }
+
     };
 
     fetchEvent();
-  }, [id]);
+  }, [id, id_save]);
+
+  function ButtonBookmark ({button, like, id_event, id_save}){
+    const handleBokmark = async (like,id_save) => {
+      console.log(`like= ${like} dan id event= ${id_event}`)
+      if(like){
+        try {
+          const { error } = await supabase.from('save').delete().eq('id_save', id_save)
+          if (error) {
+            throw error;
+          } else {
+            console.log(`Event Berhasil Dihapus dari Save`)
+            setLike(false);
+          }
+        } catch (error) {
+          alert(error.message);
+        } 
+      }
+  
+      if(!like){
+        setLike(true);
+        try {
+          const { error } = await supabase.from("save").insert({ id_event: id_event, id_akun: data_login.session.user.id });
+          if (error) {
+            throw error;
+          } else {
+            setIdSave("")
+            console.log(`Event Berhasil Disimpan `)
+          }
+        } catch (error) {
+          alert(error.message);
+        } 
+      }
+      
+    };
+  
+    return <button id={button} className="text button-register button-bookmark" onClick={() => handleBokmark(like, id_save) } ></button>
+  }
+
   const handleClick = (id) => {
     navigate(`/dashboard/eventregister/${id}`);
   };
@@ -84,7 +135,7 @@ function Detail() {
                     </button>
                   </div>
                   <div className="button-area" style={{ padding: "5px", width: "10%" }}>
-                    <button id="bookmark" className="text button-register button-bookmark"></button>
+                    <ButtonBookmark button={like?"bookmarked":"bookmark"} like={like} id_event={event[0].id_event} id_save={id_save}/>
                   </div>
                 </div>
               </div>
