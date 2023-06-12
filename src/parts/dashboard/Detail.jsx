@@ -5,7 +5,7 @@ import supabase from "../../config/supabaseClient";
 
 function Detail() {
   const [fetchError, setFetchError] = useState(null);
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState(true);
   const [event, setEvent] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Detail() {
   
   useEffect(() => {
     const fetchEvent = async () => {
-      const  event_liked  = await supabase.from("save").select(`id_event`).eq("id_akun", data_login.session.user.id);
+      const  event_liked  = await supabase.from("save").select(`id_event, id_save`).eq("id_akun", data_login.session.user.id);
       const { data, error } = await supabase.from("event").select().eq("id_event", id);
       
       if (error) {
@@ -22,31 +22,35 @@ function Detail() {
         console.log(error);
       }
       if (data) {
-        setEvent(data);
-        event_liked.data.map((n)=>{
-          if(n.id_event === event[0].id_event){
-            setLike(true)
-            console.log(like);
-          };
-        })
-        // console.log(event_liked.data)
+        setEvent(data)
+        if(event){
+          checkLiked(event_liked)
+        }
         setFetchError(null);
       }
 
-      
-
     };
 
-    fetchEvent();
-  }, [id]);
+    fetchEvent()
+  }, [id, like]);
 
+  const checkLiked = (event_liked) =>{
+    event_liked.data.map((data) => {
+      if(data.id_event === event[0].id_event){
+        setLike(true)
+      };
+    })
+    console.log(like);
+  }
+  
   const handleClick = (id) => {
     navigate(`/dashboard/eventregister/${id}`);
   };
 
-  const handleBokmark = (like) => {
+  const handleBokmark = async (like) => {
     if(like){
-      const deleteSave = async () =>{await supabase.from('save').delete().eq('id', 1)} 
+      const  id_event_delete  = await supabase.from("save").select(`id_event, id_save`).eq("id_akun", data_login.session.user.id && "id_event",event[0]["id_event"] );
+      const deleteSave = async () =>{await supabase.from('save').delete().eq('id',id_event_delete)} 
       deleteSave();
       setLike(false);
     }
