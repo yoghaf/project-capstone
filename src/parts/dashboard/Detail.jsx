@@ -9,6 +9,7 @@ function Detail() {
   const [fetchError, setFetchError] = useState(null);
   const [like, setLike] = useState(false);
   const [event, setEvent] = useState(null);
+  const [id_save, setIdSave] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   let data_login = JSON.parse(sessionStorage.getItem("token"));
@@ -29,6 +30,7 @@ function Detail() {
           event_liked.data.map((liked) => {
             if(liked.id_event === data[0].id_event){
               setLike(true);
+              setIdSave(liked.id_save)
               console.log(like);
             };
           })
@@ -39,33 +41,45 @@ function Detail() {
     };
 
     fetchEvent();
-  }, [id]);
+  }, [id, id_save]);
 
-  function ButtonBookmark ({button, like, id_event}){
-    const handleBokmark = (like) => {
+  function ButtonBookmark ({button, like, id_event, id_save}){
+    const handleBokmark = async (like,id_save) => {
       console.log(`like= ${like} dan id event= ${id_event}`)
       if(like){
-        setLike(false);
+        try {
+          const { error } = await supabase.from('save').delete().eq('id_save', id_save)
+          if (error) {
+            throw error;
+          } else {
+            console.log(`Event Berhasil Dihapus dari Save`)
+            setLike(false);
+          }
+        } catch (error) {
+          alert(error.message);
+        } 
       }
   
       if(!like){
         setLike(true);
+        try {
+          const { error } = await supabase.from("save").insert({ id_event: id_event, id_akun: data_login.session.user.id });
+          if (error) {
+            throw error;
+          } else {
+            setIdSave("")
+            console.log(`Event Berhasil Disimpan `)
+          }
+        } catch (error) {
+          alert(error.message);
+        } 
       }
-      // if(like){
-      //   const  id_event_delete  = await supabase.from("save").select(`id_event, id_save`).eq("id_akun", data_login.session.user.id && "id_event",event[0]["id_event"] );
-      //   const deleteSave = async () =>{await supabase.from('save').delete().eq('id',id_event_delete)} 
-      //   deleteSave();
-      //   setLike(false);
-      // }
-      // if(!like){
-      //   const addSave = async () => {await supabase.from('save').insert({ id_event: id , id_akun: data_login.session.user.id })};
-      //   addSave();
-      //   setLike(true)
-      // }
+      
     };
   
-    return <button id={button} className="text button-register button-bookmark" onClick={() => handleBokmark(like)} ></button>
+    return <button id={button} className="text button-register button-bookmark" onClick={() => handleBokmark(like, id_save) } ></button>
   }
+
   const handleClick = (id) => {
     navigate(`/dashboard/eventregister/${id}`);
   };
@@ -123,7 +137,7 @@ function Detail() {
                     </button>
                   </div>
                   <div className="button-area" style={{ padding: "5px", width: "10%" }}>
-                    <ButtonBookmark button={like?"bookmarked":"bookmark"} like={like} id_event={event[0].id_event}/>
+                    <ButtonBookmark button={like?"bookmarked":"bookmark"} like={like} id_event={event[0].id_event} id_save={id_save}/>
                   </div>
                 </div>
               </div>
