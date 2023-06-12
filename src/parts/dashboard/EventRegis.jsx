@@ -58,8 +58,8 @@ function EventRegis() {
     setIsLoading(true); // Set isLoading menjadi true saat proses pengiriman data dimulai
 
     const timestamp = Date.now();
-    const posterImageName = `poster/${field.id_akun}-${timestamp}-${field.poster_img_url.name}`;
-    const appImageName = `app/${field.id_akun}-${timestamp}-${field.app_img_url.name}`;
+    const posterImageName = `poster/${field.id_akun}-${timestamp}`;
+    const appImageName = `app/${field.id_akun}`;
 
     try {
       const { error } = await supabase.storage.from("images").upload(posterImageName, field.poster_img_url, {
@@ -85,7 +85,7 @@ function EventRegis() {
       }
     } catch (error) {
       alert(error.message);
-      setIsLoading(false); // Set isLoading menjadi false jika terjadi error
+      setIsLoading(false);
       return;
     }
 
@@ -108,7 +108,7 @@ function EventRegis() {
     } catch (error) {
       alert(error.message);
     } finally {
-      setIsLoading(false); // Set isLoading menjadi false setelah proses pengiriman data selesai (baik berhasil atau gagal)
+      setIsLoading(false);
     }
   };
 
