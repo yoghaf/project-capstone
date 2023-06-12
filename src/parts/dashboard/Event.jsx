@@ -27,7 +27,7 @@ function Event() {
     };
 
     fetchEvent();
-  });
+  }, []);
 
   return (
     <div className="container">
@@ -49,8 +49,8 @@ function Event() {
         {events && (
           <div className="row  row-gap-5 ">
             {events.map((event) => (
-              <div className="col-lg-4 " key={event.id}>
-                <CardEvent key={event.id} image={event.image} title={event.name} description={event.description} link={`/dashboard/event/${event.id}`} />
+              <div className="col-lg-4 " key={event.id_event}>
+                <CardEvent key={event.id} image={event.image} title={event.name} description={event.description} link={`/dashboard/event/${event.id_event}`} />
               </div>
             ))}
           </div>

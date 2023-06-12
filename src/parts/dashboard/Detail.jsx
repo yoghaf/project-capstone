@@ -11,7 +11,7 @@ function Detail() {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchEvent = async () => {
-      const { data, error } = await supabase.from("event").select().eq("id", id);
+      const { data, error } = await supabase.from("event").select().eq("id_event", id);
 
       if (error) {
         setFetchError("Could not fetch the events");
@@ -79,7 +79,7 @@ function Detail() {
               <div className="row box-space-h" style={{ padding: "0 20%" }}>
                 <div className="row button-area" style={{ padding: "0" }}>
                   <div className="button-area" style={{ padding: "5px", width: "90%" }}>
-                    <button id="register" className="text button-register" onClick={() => handleClick(event[0].id)}>
+                    <button id="register" className="text button-register" onClick={() => handleClick(event[0].id_event)}>
                       DAFTAR
                     </button>
                   </div>
