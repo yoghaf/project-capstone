@@ -3,9 +3,11 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import "../../assets/style/detail.css";
 import supabase from "../../config/supabaseClient";
 
+
+
 function Detail() {
   const [fetchError, setFetchError] = useState(null);
-  const [like, setLike] = useState(true);
+  const [like, setLike] = useState(false);
   const [event, setEvent] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -23,42 +25,49 @@ function Detail() {
       }
       if (data) {
         setEvent(data)
-        if(event){
-          checkLiked(event_liked)
+        if(event_liked){
+          event_liked.data.map((liked) => {
+            if(liked.id_event === data[0].id_event){
+              setLike(true);
+              console.log(like);
+            };
+          })
         }
         setFetchError(null);
       }
 
     };
 
-    fetchEvent()
-  }, [id, like]);
+    fetchEvent();
+  }, [id]);
 
-  const checkLiked = (event_liked) =>{
-    event_liked.data.map((data) => {
-      if(data.id_event === event[0].id_event){
-        setLike(true)
-      };
-    })
-    console.log(like);
-  }
+  function ButtonBookmark ({button, like, id_event}){
+    const handleBokmark = (like) => {
+      console.log(`like= ${like} dan id event= ${id_event}`)
+      if(like){
+        setLike(false);
+      }
   
+      if(!like){
+        setLike(true);
+      }
+      // if(like){
+      //   const  id_event_delete  = await supabase.from("save").select(`id_event, id_save`).eq("id_akun", data_login.session.user.id && "id_event",event[0]["id_event"] );
+      //   const deleteSave = async () =>{await supabase.from('save').delete().eq('id',id_event_delete)} 
+      //   deleteSave();
+      //   setLike(false);
+      // }
+      // if(!like){
+      //   const addSave = async () => {await supabase.from('save').insert({ id_event: id , id_akun: data_login.session.user.id })};
+      //   addSave();
+      //   setLike(true)
+      // }
+    };
+  
+    return <button id={button} className="text button-register button-bookmark" onClick={() => handleBokmark(like)} ></button>
+  }
   const handleClick = (id) => {
     navigate(`/dashboard/eventregister/${id}`);
-  };
-
-  const handleBokmark = async (like) => {
-    if(like){
-      const  id_event_delete  = await supabase.from("save").select(`id_event, id_save`).eq("id_akun", data_login.session.user.id && "id_event",event[0]["id_event"] );
-      const deleteSave = async () =>{await supabase.from('save').delete().eq('id',id_event_delete)} 
-      deleteSave();
-      setLike(false);
-    }
-    if(!like){
-      const addSave = async () => {await supabase.from('save').insert({ id_event: id , id_akun: data_login.session.user.id })};
-      addSave();
-      setLike(true)
-    }
   };
 
   return (
@@ -109,13 +118,12 @@ function Detail() {
               <div className="row box-space-h" style={{ padding: "0 20%" }}>
                 <div className="row button-area" style={{ padding: "0" }}>
                   <div className="button-area" style={{ padding: "5px", width: "90%" }}>
-                    <button id="register" className="text button-register" onClick={() => handleClick(event[0].id)}>
+                    <button id="register" className="text button-register" onClick={() => handleClick(event[0].id_event)}>
                       DAFTAR
                     </button>
                   </div>
                   <div className="button-area" style={{ padding: "5px", width: "10%" }}>
-                    {like?<button id="bookmarked" className="text button-register button-bookmark" onClick={handleBokmark(like)}></button>
-                    :<button id="bookmark" className="text button-register button-bookmark"  onClick={() =>handleBokmark(like)}></button>}
+                    <ButtonBookmark button={like?"bookmarked":"bookmark"} like={like} id_event={event[0].id_event}/>
                   </div>
                 </div>
               </div>
