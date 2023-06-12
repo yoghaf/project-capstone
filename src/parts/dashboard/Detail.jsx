@@ -3,8 +3,6 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import "../../assets/style/detail.css";
 import supabase from "../../config/supabaseClient";
 
-
-
 function Detail() {
   const [fetchError, setFetchError] = useState(null);
   const [like, setLike] = useState(false);
