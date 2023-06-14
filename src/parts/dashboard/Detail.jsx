@@ -25,7 +25,6 @@ function Detail() {
       if (data) {
         setEvent(data)
         if(event_liked){
-          
           event_liked.data.forEach((liked) => {
             if(liked.id_event === data[0].id_event){
               setLike(true);
