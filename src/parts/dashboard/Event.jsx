@@ -29,7 +29,7 @@ function Event() {
     };
 
     fetchEvent();
-  }, []);
+  });
 
   function search(value){
     searchValue = value.toLowerCase();
