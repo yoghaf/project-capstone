@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -10,15 +10,20 @@ import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 import { BsPlus } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
-import { LuTrash } from "react-icons/lu";
-import InputGroup from 'react-bootstrap/InputGroup';
+import InputGroup from "react-bootstrap/InputGroup";
 import "../../assets/fonts/Nunito-Bold.ttf";
 import "../../assets/style/myevent.css";
 import supabase from "../../config/supabaseClient";
+import { Context } from "../../utils/MyContext";
 
 function MyEvent() {
+  const { field, setField, fetchCities, fetchProvince } = useContext(Context);
+  const [province, setProvince] = useState([]);
+  const [city, setCity] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const imgUrl = process.env.REACT_APP_IMAGE_URL;
   // state user id
-  const [userId, setUserId] = useState(null);
+
   // state modal show
   const [modalShow, setModalShow] = useState(false);
   // state handle id
@@ -26,102 +31,159 @@ function MyEvent() {
   // state modal add
   const [showModalAdd, setShowModalAdd] = useState(false);
   // state data
-  const [nameEvent, setNameEvent] = useState("");
-  // state regis
-  const [dateRegisStart, setDateRegisStart] = useState(null);
-  const [dateRegisEnd, setDateRegisEnd] = useState(null);
-  // state date
-  const [startDate, setStartDate] = useState(new Date());
-  const [endData, setEndDate] = useState(new Date());
-  // state link
-  const [link, setLink] = useState("");
-  // state description
-  const [description, setDescription] = useState("");
-  // state city
-  const [city, setCity] = useState("");
-  const cities = [
-    {
-      id: 1,
-      title: "Bogor",
-    },
-    {
-      id: 2,
-      title: "Jakarta",
-    },
-    {
-      id: 3,
-      title: "Bandung",
-    },
-  ];
-  // const [cities, setCities] = useState([
-  //   {
-  //     id: 1,
-  //     title: "Bogor",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Jakarta",
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Bandung",
-  //   },
-  // ]);
-  // state location
-  const [location, setLocation] = useState("");
-  // state link group
-  const [linkGroup, setLinkGroup] = useState("");
-  // state main data my event
+
   const [data, setData] = useState([]);
 
   // handle save event
-  const handleSaveEvent = () => {
-    let number = data.length;
-    setData(
-      data.concat({
-        id: number + 1,
-        activity: description,
-        audience: 0,
-        status: "live",
-      })
-    );
-    setShowModalAdd(false);
-  };
+  // const handleSaveEvent = () => {
+  //   let number = data.length;
+  //   setData(
+  //     data.concat({
+  //       id: number + 1,
+  //       activity: description,
+  //       audience: 0,
+  //       status: "live",
+  //     })
+  //   );
+  //   setShowModalAdd(false);
+  // };
 
   useEffect(() => {
-    async function getSession() {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const dataProvince = async () => {
       try {
-        const { data, error } = await supabase.auth.getSession();
-        setUserId(data?.session?.user?.id)
-        handleGetMyEvent(data?.session?.user?.id);
+        const data = await fetchProvince();
+        setProvince(data);
       } catch (error) {
-        console.log("error get session");
+        console.log(error);
       }
+    };
+
+    dataProvince();
+
+    // id_akun
+    if (sessionStorage.getItem("token")) {
+      let data = JSON.parse(sessionStorage.getItem("token"));
+
+      setField((prevState) => ({
+        ...prevState,
+        id_akun: data.user.id,
+      }));
     }
 
-    getSession();
-  });
+    // fetch data myevent
+    const fetchDataMyEvent = async () => {
+      const id_akun = JSON.parse(sessionStorage.getItem("token")).user.id;
 
-  // handle get data
-  const handleGetMyEvent = async (userId) => {
-    const { data, error } = await supabase
-      .from("event")
-      .select("*")
-      .eq("id_akun", userId);
+      const { data, error } = await supabase.from("event").select("*").eq("id_akun", id_akun);
 
-    if (error) {
-      setData([]);
-      console.log(error);
-    }
-    if (data) {
-      setData(data);
+      if (error) {
+        setData([]);
+        console.log(error);
+      }
+      if (data) {
+        setData(data);
+      }
+    };
+    fetchDataMyEvent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // handlechange
+  const handleChange = async (e) => {
+    const { name, value, type, checked } = e.target;
+
+    if (type === "file") {
+      setField((prevState) => ({
+        ...prevState,
+        [name]: e.target.files[0],
+      }));
+    } else {
+      if (name === "province") {
+        const selectedProvinceId = parseInt(value);
+
+        const selectedProvince = province.find((item) => item.id === selectedProvinceId);
+
+        const selectedProvinceName = selectedProvince ? selectedProvince.nama : "";
+
+        setField((prevState) => ({
+          ...prevState,
+          province: selectedProvinceName,
+        }));
+
+        try {
+          const data = await fetchCities(selectedProvinceId);
+          setCity(data);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        const fieldValue = type === "checkbox" ? checked : value;
+
+        setField((prevState) => ({
+          ...prevState,
+          [name]: fieldValue,
+        }));
+      }
     }
   };
 
+  // handlesubmit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    const timestamp = Date.now();
+
+    const eventImageName = `event/${field.id_akun}-${timestamp}`;
+
+    try {
+      const { error } = await supabase.storage.from("images").upload(eventImageName, field.image, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      alert(error.message);
+      return;
+    }
+    const updatedField = {
+      ...field,
+      image: `${imgUrl}/${eventImageName}`,
+    };
+
+    try {
+      const { error } = await supabase.from("event").insert(updatedField);
+      if (error) {
+        throw error;
+      } else {
+        alert("Data berhasil ditambahkan");
+      }
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+    setShowModalAdd(false);
+    const { data } = await supabase.from("event").select("*").eq("id_akun", updatedField.id_akun);
+    setData(data);
+  };
+
+  // handle get data
+
   // handle delete data
-  const handleDeleteMyEvent =  async () => {
-    const { error } = await supabase.from("event").delete().eq("id", handleId);
-    handleGetMyEvent(userId)
+  const handleDeleteMyEvent = async () => {
+    const { error } = await supabase.from("event").delete().eq("id_event", handleId);
+    // handleGetMyEvent(userId);
+    if (error) {
+      alert(error.message);
+    }
+    const id_akun = JSON.parse(sessionStorage.getItem("token")).user.id;
+    const { data } = await supabase.from("event").select("*").eq("id_akun", id_akun);
+    setData(data);
+
     setModalShow(false);
     setHandleId(null);
   };
@@ -133,29 +195,18 @@ function MyEvent() {
           <div className="card-search">
             <Form className="search-box">
               <CiSearch className="search-icon" />
-              <Form.Control
-                type="search"
-                icon="fa-search"
-                placeholder="Search Event"
-                aria-label="Search"
-                className="search-input"
-              />
+              <Form.Control type="search" icon="fa-search" placeholder="Search Event" aria-label="Search" className="search-input" />
             </Form>
           </div>
         </Col>
         <Col className="ms-auto me-0" xs={1} md={1}>
-          <Button
-            className="buttonAdd"
-            size="sm"
-            variant="success"
-            onClick={() => setShowModalAdd(true)}
-          >
+          <Button className="buttonAdd" size="sm" variant="success" onClick={() => setShowModalAdd(true)}>
             <BsPlus />
           </Button>
         </Col>
       </Row>
       <center>
-        {data == [] ? (
+        {data === [] ? (
           <Card className="w-25 mt-4 mb-4">
             <Card.Body>Tidak ada data</Card.Body>
           </Card>
@@ -170,18 +221,26 @@ function MyEvent() {
                   <th>AKSI</th>
                 </tr>
                 {data.map((item, i) => {
+                  const startDate = new Date(item["event-start"]);
+                  const endDate = new Date(item["event-end"]);
+                  const currentDate = new Date();
+
+                  let status;
+                  if (currentDate >= startDate && currentDate <= endDate) {
+                    status = "live";
+                  } else if (currentDate > endDate) {
+                    status = "finished";
+                  }
+
                   return (
                     <tr key={i}>
                       <td align="left">
-                        <Link
-                          className="text-black"
-                          to={"/dashboard/myevent/" + item.id}
-                        >
+                        <Link className="text-black" to={"/dashboard/myevent/" + item.id}>
                           {item.name}
                         </Link>
                       </td>
                       <td>{item?.audience}</td>
-                      {item?.status === "live" ? (
+                      {status === "live" ? (
                         <td
                           style={{
                             color: "#52AD32",
@@ -205,7 +264,7 @@ function MyEvent() {
                           style={{ fontFamily: "Bold" }}
                           variant="danger"
                           onClick={() => {
-                            setHandleId(item?.id);
+                            setHandleId(item?.id_event);
                             setModalShow(true);
                           }}
                         >
@@ -222,25 +281,12 @@ function MyEvent() {
       </center>
 
       {/* modal delete */}
-      <Modal
-        show={modalShow}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header
-          style={{ background: "#F45252" }}
-          closeButton
-          onClick={() => setModalShow(false)}
-        >
+      <Modal show={modalShow} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Header style={{ background: "#F45252" }} closeButton onClick={() => setModalShow(false)}>
           <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ background: "#F45252" }}>
-          <h5
-            style={{ textAlign: "center", color: "white", fontFamily: "Bold" }}
-          >
-            Apakah anda yakin ingin menghapus event ini ?
-          </h5>
+          <h5 style={{ textAlign: "center", color: "white", fontFamily: "Bold" }}>Apakah anda yakin ingin menghapus event ini ?</h5>
           <div
             style={{
               fontFamily: "Bold",
@@ -249,11 +295,7 @@ function MyEvent() {
               alignItems: "center",
             }}
           >
-            <Button
-              variant="light"
-              size="sm"
-              onClick={() => handleDeleteMyEvent()}
-            >
+            <Button variant="light" size="sm" onClick={() => handleDeleteMyEvent()}>
               Ya
             </Button>{" "}
           </div>
@@ -261,12 +303,7 @@ function MyEvent() {
       </Modal>
 
       {/* modal add */}
-      <Modal
-        show={showModalAdd}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
+      <Modal show={showModalAdd} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Header closeButton onClick={() => setShowModalAdd(false)}>
           <Modal.Title id="contained-modal-title-vcenter"></Modal.Title>
         </Modal.Header>
@@ -276,117 +313,73 @@ function MyEvent() {
             <p className="title-addevent" style={{ fontFamily: "Bold" }}>
               ADD NEW EVENT
             </p>
-            <Form style={{ fontFamily: "Bold" }}>
+            <Form style={{ fontFamily: "Bold" }} onSubmit={handleSubmit}>
               {/* name event */}
               <Form.Group className="d-flex align-items-center mb-2 mt-2">
                 <Form.Label className="w-25">Name of Event</Form.Label>
-                <Form.Control
-                  className="w-100"
-                  placeholder=""
-                  value={nameEvent}
-                  onChange={(v) => setNameEvent(v.target.value)}
-                />
+                <Form.Control className="w-100" placeholder="" name="name" onChange={handleChange} />
               </Form.Group>
               {/* registration */}
               <Form.Group className="d-flex align-items-center mb-2 mt-2">
                 <Form.Label className="w-25">Regitration</Form.Label>
                 <div className="d-flex align-items-center flex-grow-1">
-                  <Form.Control
-                    className="formDate w-45"
-                    type="date"
-                    value={dateRegisStart == null ? new Date() : dateRegisStart}
-                    onChange={(v) => setDateRegisStart(v.target.value)}
-                  />
+                  <Form.Control className="formDate w-45" type="date" name="regist-start" onChange={handleChange} />
                   <p style={{ marginLeft: 16, marginRight: 16 }}>-</p>
-                  <Form.Control
-                    className="formDate w-45"
-                    type="date"
-                    value={dateRegisEnd == null ? new Date() : dateRegisEnd}
-                    onChange={(v) => setDateRegisEnd(v.target.value)}
-                  />
+                  <Form.Control className="formDate w-45" type="date" name="regist-end" onChange={handleChange} />
                 </div>
               </Form.Group>
               {/* date */}
               <Form.Group className="d-flex align-items-center mb-2 mt-2">
                 <Form.Label className="w-25">Date</Form.Label>
                 <div className="d-flex align-items-center flex-grow-1">
-                  <Form.Control
-                    className="formDate w-45"
-                    type="date"
-                    value={startDate}
-                    onChange={(v) => setStartDate(v.target.value)}
-                  />
+                  <Form.Control className="formDate w-45" type="date" name="event-start" onChange={handleChange} />
                   <p style={{ marginLeft: 16, marginRight: 16 }}>-</p>
-                  <Form.Control
-                    className="formDate w-45"
-                    type="date"
-                    value={endData}
-                    onChange={(v) => setEndDate(v.target.value)}
-                  />
+                  <Form.Control className="formDate w-45" type="date" name="event-end" onChange={handleChange} />
                 </div>
               </Form.Group>
               {/* link image */}
               <Form.Group className="d-flex align-items-center mb-2 mt-2">
-                <Form.Label className="w-25">Link image</Form.Label>
-                <Form.Control
-                  className="w-100"
-                  placeholder=""
-                  value={link}
-                  onChange={(v) => setLink(v.target.value)}
-                />
+                <Form.Label className="w-25">Upload Cover Image</Form.Label>
+                <input type="file" id="image" name="image" onChange={handleChange} />
               </Form.Group>
               {/* description */}
               <Form.Group className="d-flex mb-2 mt-2">
                 <Form.Label className="w-25">Description</Form.Label>
-                <Form.Control
-                  className="w-100"
-                  placeholder=""
-                  as="textarea"
-                  rows={3}
-                  value={description}
-                  onChange={(v) => setDescription(v.target.value)}
-                />
+                <Form.Control className="w-100" placeholder="" as="textarea" rows={3} name="description" onChange={handleChange} />
+              </Form.Group>
+              {/* province */}
+              <Form.Group className="d-flex mb-2 mt-2">
+                <Form.Label className="w-25">City</Form.Label>
+                <Form.Select className="w-100" placeholder="" name="province" onChange={handleChange}>
+                  <option>Select Province</option>
+                  {province.map((item, i) => {
+                    return (
+                      <option key={i} value={item.id}>
+                        {item?.nama}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
               </Form.Group>
               {/* city */}
               <Form.Group className="d-flex mb-2 mt-2">
                 <Form.Label className="w-25">City</Form.Label>
-                <Form.Select
-                  className="w-100"
-                  placeholder=""
-                  value={city}
-                  onChange={(v) => setCity(v.target.value)}
-                >
+                <Form.Select className="w-100" placeholder="" name="city" onChange={handleChange}>
                   <option>Select city</option>
-                  {cities.map((item, i) => {
-                    return (
-                      <option key={i} value={item?.title}>
-                        {item?.title}
-                      </option>
-                    );
+                  {city.map((item) => {
+                    return <option key={item.id}>{item?.nama}</option>;
                   })}
                 </Form.Select>
               </Form.Group>
               {/* location */}
               <Form.Group className="d-flex mb-2 mt-2">
                 <Form.Label className="w-25">Location</Form.Label>
-                <Form.Control
-                  className="w-100"
-                  placeholder=""
-                  as="textarea"
-                  rows={3}
-                  value={location}
-                  onChange={(v) => setLocation(v.target.value)}
-                />
+                <Form.Control className="w-100" placeholder="" as="textarea" rows={3} name="location" onChange={handleChange} />
               </Form.Group>
               {/* Link invite Group */}
               <Form.Group className="d-flex align-items-center mb-2 mt-2">
                 <Form.Label className="w-25">Link invite Group</Form.Label>
-                <Form.Control
-                  className="w-100"
-                  placeholder=""
-                  value={linkGroup}
-                  onChange={(v) => setLinkGroup(v.target.value)}
-                />
+                <Form.Control className="w-100" placeholder="" name="link-invite" onChange={handleChange} />
               </Form.Group>
               {/* button add new image */}
               <Button variant="secondary" className="w-100 mb-4 mt-2">
@@ -394,27 +387,22 @@ function MyEvent() {
               </Button>{" "}
               {/* Checkbox */}
               <Form.Group className="checkbox-group align-items-center mb-2 mt-2">
-                <InputGroup className="checkbox mb-3 ms-1" >
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="Share Poster"/>
+                <InputGroup className="checkbox mb-3 ms-1">
+                  <InputGroup.Checkbox aria-label="Checkbox for following text input" name="poster" onChange={handleChange} />
+                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="Share Poster" />
                 </InputGroup>
-                <InputGroup className="checkbox mb-3 ms-1" >
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="Bukti Pembayaran"/>
+                <InputGroup className="checkbox mb-3 ms-1">
+                  <InputGroup.Checkbox aria-label="Checkbox for following text input" name="payment" onChange={handleChange} />
+                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="Bukti Pembayaran" />
                 </InputGroup>
-                <InputGroup className="checkbox mb-3 ms-1" >
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="SS Follow"/>
+                <InputGroup className="checkbox mb-3 ms-1">
+                  <InputGroup.Checkbox aria-label="Checkbox for following text input" name="follow" onChange={handleChange} />
+                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="SS Follow" />
                 </InputGroup>
               </Form.Group>
-              
               {/* button save */}
-              <Button
-                variant="success"
-                className="w-100 mb-4 mt-2"
-                onClick={() => handleSaveEvent()}
-              >
-                SIMPAN
+              <Button variant="success" className="w-100 mb-4 mt-2" type="submit">
+                {loading ? "Loading..." : "Create Event"}
               </Button>{" "}
             </Form>
           </div>
