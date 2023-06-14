@@ -225,12 +225,16 @@ function MyEvent() {
                   const endDate = new Date(item["event-end"]);
                   const currentDate = new Date();
 
-                  let status;
-                  if (currentDate >= startDate && currentDate <= endDate) {
-                    status = "live";
-                  } else if (currentDate > endDate) {
-                    status = "finished";
-                  }
+                  const getStatus = () => {
+                    if (currentDate >= startDate && currentDate <= endDate) {
+                      return "live";
+                    } else if (currentDate < startDate) {
+                      return "upcoming";
+                    }
+                    return "finished";
+                  };
+
+                  const status = getStatus();
 
                   return (
                     <tr key={i}>
@@ -249,10 +253,20 @@ function MyEvent() {
                         >
                           BERLANGSUNG
                         </td>
+                      ) : status === "upcoming" ? (
+                        <td
+                          style={{
+                            color: "#F4B740",
+                            fontFamily: "Bold",
+                          }}
+                        >
+                          MENYUSUL
+                        </td>
                       ) : (
                         <td
                           style={{
-                            color: "#AD3232",
+                            color: "#F45252",
+                            fontFamily: "Bold",
                           }}
                         >
                           SELESAI
