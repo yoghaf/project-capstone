@@ -42,46 +42,14 @@
     width: 80px;
     font-size: 10px;
   }
+
 }
 
-/* @media screen and (max-width: 600px){
-  .search-input {
-    width: 200px;
+@media screen and (min-width: 600px){
+  .checkbox{
+  width: 50%;
   }
-
-  .formDate{
-    width:120px;
-    font-size:12px;
-  }
-
-  .seacrhAdd{
-    width: 80%;
-    margin: 0 auto;
-  }
-
-  .container-table{
-    width: 80%;
-    margin-top: 20px;
-    font-size :12px;
-  }
-
-  .container-table td {
-    padding: 10px;
-  }
-
-  .header th{
-    padding: 10px;
-  }
-
-  .title-addevent{
-    font-size: 36px;
-  }
-  
-  .deleteButton{
-    width: 80px;
-    font-size: 10px;
-  }
-} */
+} 
 
 @media screen and (min-width: 418px){
   .search-box {
@@ -137,6 +105,7 @@
   .title-addevent{
     font-size: 36px;
   }
+
 }
 
 @media only screen and (min-width: 1392px){
@@ -204,3 +173,4 @@ table tbody {
   display: table;
   width: 100%;
 }
+

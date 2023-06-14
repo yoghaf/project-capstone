@@ -11,6 +11,7 @@ import Table from "react-bootstrap/Table";
 import { BsPlus } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { LuTrash } from "react-icons/lu";
+import InputGroup from 'react-bootstrap/InputGroup';
 import "../../assets/fonts/Nunito-Bold.ttf";
 import "../../assets/style/myevent.css";
 import supabase from "../../config/supabaseClient";
@@ -389,22 +390,24 @@ function MyEvent() {
               </Form.Group>
               {/* button add new image */}
               <Button variant="secondary" className="w-100 mb-4 mt-2">
-                <BsPlus />
-                ADD NEW IMAGE INPUT
+                SELECT IMAGE INPUT
               </Button>{" "}
-              {/* button image poster */}
-              <div className="d-flex align-items-center mt-2 mb-2">
-                <LuTrash />
-                <Card body style={{ marginLeft: 16 }} className="size-sm">
-                  Bukti Share Poster
-                </Card>
-              </div>
-              <div className="d-flex align-items-center mt-2 mb-2">
-                <LuTrash />
-                <Card body style={{ marginLeft: 16 }} className="size-sm">
-                  Bukti Share Poster
-                </Card>
-              </div>
+              {/* Checkbox */}
+              <Form.Group className="checkbox-group align-items-center mb-2 mt-2">
+                <InputGroup className="checkbox mb-3 ms-1" >
+                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="Share Poster"/>
+                </InputGroup>
+                <InputGroup className="checkbox mb-3 ms-1" >
+                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="Bukti Pembayaran"/>
+                </InputGroup>
+                <InputGroup className="checkbox mb-3 ms-1" >
+                  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="SS Follow"/>
+                </InputGroup>
+              </Form.Group>
+              
               {/* button save */}
               <Button
                 variant="success"
