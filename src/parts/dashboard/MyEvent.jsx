@@ -340,7 +340,7 @@ function MyEvent() {
               {/* link image */}
               <Form.Group className="d-flex align-items-center mb-2 mt-2">
                 <Form.Label className="w-25">Upload Cover Image</Form.Label>
-                <input type="file" id="image" name="image" onChange={handleChange} />
+                <input className="image-button" type="file" id="image" name="image" onChange={handleChange} />
               </Form.Group>
               {/* description */}
               <Form.Group className="d-flex mb-2 mt-2">
@@ -389,15 +389,15 @@ function MyEvent() {
               <Form.Group className="checkbox-group align-items-center mb-2 mt-2">
                 <InputGroup className="checkbox mb-3 ms-1">
                   <InputGroup.Checkbox className="mr-5" aria-label="Checkbox for following text input" name="poster" onChange={handleChange} />
-                  <Form.Label className="w-25 ">Share Poster</Form.Label>
+                  <Form.Label className="label-checkbox  ">Share Poster</Form.Label>
                 </InputGroup>
                 <InputGroup className="checkbox mb-3 ms-1">
                   <InputGroup.Checkbox aria-label="Checkbox for following text input" name="payment" onChange={handleChange} />
-                  <Form.Label className="w-25">Bukti Pembayaranr</Form.Label>
+                  <Form.Label className="label-checkbox ">Bukti Pembayaran</Form.Label>
                 </InputGroup>
                 <InputGroup className="checkbox mb-3 ms-1">
                   <InputGroup.Checkbox aria-label="Checkbox for following text input" name="follow" onChange={handleChange} />
-                  <Form.Label className="w-25">Bukti Screenshot Follow</Form.Label>
+                  <Form.Label className="label-checkbox ">Bukti Screenshot Follow</Form.Label>
                 </InputGroup>
               </Form.Group>
               {/* button save */}
