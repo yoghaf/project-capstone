@@ -42,7 +42,7 @@ function Event() {
   function drawCards(event){
     if(searchValue != null) {
       if (!event.name.toLowerCase().includes(searchValue)) {
-        return (<div className="col-lg-4 " key={event.id}></div>);
+        return;
       }
     }
     const dateNow = new Date();
@@ -51,13 +51,13 @@ function Event() {
       const dateCheck = new Date(event["regist-start"]);
       const dateCheckMilli = dateCheck.getTime();
       if (!(dateCheckMilli > dateNowMilli)) {
-        return (<div className="col-lg-4 " key={event.id}></div>);
+        return;
       }
     } else if(filterValue === "Past") {
       const dateCheck = new Date(event["event-end"]);
       const dateCheckMilli = dateCheck.getTime();
       if (!(dateCheckMilli < dateNowMilli)) {
-        return (<div className="col-lg-4 " key={event.id}></div>);
+        return;
       }
     }
     return(
