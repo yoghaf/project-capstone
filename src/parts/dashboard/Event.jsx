@@ -62,7 +62,7 @@ function Event() {
     }
     return(
     <div className="col-lg-4 " key={event.id}>
-      <CardEvent key={event.id} image={event.image} title={event.name} description={event.description} link={`/dashboard/event/${event.id}`} />
+      <CardEvent key={event.id} image={event.image} title={event.name} description={event.description} link={`/dashboard/event/${event.id_event}`} />
     </div> );
   }
 

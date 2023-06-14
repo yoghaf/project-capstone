@@ -127,7 +127,7 @@ function MyEvent() {
 
   // handle delete data
   const handleDeleteMyEvent =  async () => {
-    const { error } = await supabase.from("event").delete().eq("id", handleId);
+    const { error } = await supabase.from("event").delete().eq("id_event", handleId);
 
     if(error){
       console.log(error)
@@ -186,7 +186,7 @@ function MyEvent() {
                       <td align="left">
                         <Link
                           className="text-black"
-                          to={"/dashboard/myevent/" + item.id}
+                          to={"/dashboard/myevent/" + item.id_event}
                         >
                           {item.name}
                         </Link>
