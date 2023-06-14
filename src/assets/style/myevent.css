@@ -1,96 +1,95 @@
 /* fonts */
 @font-face {
-  font-family: "Bold";   /*Can be any text*/
-  src: local("NunitoBold"),
-    url("../fonts/Nunito-Bold.ttf") format("truetype");
+  font-family: "Bold"; /*Can be any text*/
+  src: local("NunitoBold"), url("../fonts/Nunito-Bold.ttf") format("truetype");
 }
-@media screen and (min-width: 320px){
+@media screen and (min-width: 320px) {
   .search-input {
     width: 10px;
   }
 
-  .formDate{
-    width:85px;
-    font-size:10px;
-    padding:5px;
+  .formDate {
+    width: 85px;
+    font-size: 10px;
+    padding: 5px;
   }
 
-  .seacrhAdd{
+  .seacrhAdd {
     width: 80%;
     margin: 0 auto;
   }
 
-  .container-table{
+  .container-table {
     width: 80%;
     margin-top: 20px;
-    font-size :15px;
+    font-size: 15px;
   }
 
   .container-table td {
     padding: 10px;
   }
 
-  .header th{
+  .header th {
     padding: 10px;
   }
 
-  .title-addevent{
+  .title-addevent {
     font-size: 36px;
   }
-  
-  .deleteButton{
+
+  .deleteButton {
     width: 80px;
     font-size: 10px;
   }
-
 }
 
-@media screen and (min-width: 600px){
-  .checkbox{
-  width: 50%;
+@media screen and (min-width: 600px) {
+  .checkbox {
+    width: 50%;
   }
-} 
+}
 
-@media screen and (min-width: 418px){
+@media screen and (min-width: 418px) {
   .search-box {
-    width:250px;
+    width: 250px;
   }
 
   .search-input {
     width: 200px;
   }
 
-  .seacrhAdd{
+  .seacrhAdd {
     width: 80%;
     margin: 0 auto;
   }
 
-  .container-table{
+  .container-table {
     width: 80%;
     margin-top: 20px;
-    font-size :15px;
+    font-size: 15px;
   }
 
   .container-table td {
     padding: 10px;
   }
 
-  .header th{
+  .header th {
     padding: 10px;
   }
 
-  .title-addevent{
+  .title-addevent {
     font-size: 36px;
   }
-  
-  .deleteButton{
+
+  .deleteButton {
     width: 80px;
     font-size: 10px;
   }
 }
 
-@media only screen and (min-width: 1064px){
-  .container-table, .seacrhAdd{
+@media only screen and (min-width: 1064px) {
+  .container-table,
+  .seacrhAdd {
     width: 70%;
   }
 
@@ -98,18 +97,18 @@
     padding: 20px;
   }
 
-  .header th{
+  .header th {
     padding: 20px;
   }
 
-  .title-addevent{
+  .title-addevent {
     font-size: 36px;
   }
-
 }
 
-@media only screen and (min-width: 1392px){
-  .container-table, .seacrhAdd{
+@media only screen and (min-width: 1392px) {
+  .container-table,
+  .seacrhAdd {
     width: 65%;
   }
 }
@@ -131,35 +130,34 @@
   border: none;
   outline: none;
   width: 200px;
-  font-family: 'Bold';
+  font-family: "Bold";
 }
 
-.buttonAdd{
+.buttonAdd {
   item-align: right;
 }
 
-.container-table{
+.container-table {
   border-collapse: collapse;
-  border: 0px solid #FFFFFF ;
+  border: 0px solid #ffffff;
   text-align: center;
-  background-color:#EEEEEE;
+  background-color: #eeeeee;
 }
 
-.header{
-  background-color: #27374D;
-  color: #FFFFFF;
+.header {
+  background-color: #27374d;
+  color: #ffffff;
   text-align: center;
   font-family: Nunito;
 }
 
-
-.rowsearch{
+.rowsearch {
   display: flex;
   background-color: pink;
 }
 
 /* form add new event */
-.title-addevent{
+.title-addevent {
   text-align: center;
 }
 
@@ -173,4 +171,7 @@ table tbody {
   display: table;
   width: 100%;
 }
-
+.checkbox-label {
+  margin-left: 20px;
+  background-color: aquamarine;
+}

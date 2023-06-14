@@ -49,27 +49,7 @@ function MyEvent() {
   // };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const dataProvince = async () => {
-      try {
-        const data = await fetchProvince();
-        setProvince(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    dataProvince();
-
     // id_akun
-    if (sessionStorage.getItem("token")) {
-      let data = JSON.parse(sessionStorage.getItem("token"));
-
-      setField((prevState) => ({
-        ...prevState,
-        id_akun: data.user.id,
-      }));
-    }
 
     // fetch data myevent
     const fetchDataMyEvent = async () => {
@@ -86,12 +66,19 @@ function MyEvent() {
       }
     };
     fetchDataMyEvent();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // handlechange
   const handleChange = async (e) => {
     const { name, value, type, checked } = e.target;
+    if (sessionStorage.getItem("token")) {
+      let data = JSON.parse(sessionStorage.getItem("token"));
+
+      setField((prevState) => ({
+        ...prevState,
+        id_akun: data.user.id,
+      }));
+    }
 
     if (type === "file") {
       setField((prevState) => ({
@@ -187,7 +174,20 @@ function MyEvent() {
     setModalShow(false);
     setHandleId(null);
   };
+  const handleAdd = (e) => {
+    e.preventDefault();
+    setShowModalAdd(true);
+    const dataProvince = async () => {
+      try {
+        const data = await fetchProvince();
+        setProvince(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
+    dataProvince();
+  };
   return (
     <div>
       <Row className="seacrhAdd mt-4">
@@ -200,7 +200,7 @@ function MyEvent() {
           </div>
         </Col>
         <Col className="ms-auto me-0" xs={1} md={1}>
-          <Button className="buttonAdd" size="sm" variant="success" onClick={() => setShowModalAdd(true)}>
+          <Button className="buttonAdd" size="sm" variant="success" onClick={handleAdd}>
             <BsPlus />
           </Button>
         </Col>
@@ -388,16 +388,16 @@ function MyEvent() {
               {/* Checkbox */}
               <Form.Group className="checkbox-group align-items-center mb-2 mt-2">
                 <InputGroup className="checkbox mb-3 ms-1">
-                  <InputGroup.Checkbox aria-label="Checkbox for following text input" name="poster" onChange={handleChange} />
-                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="Share Poster" />
+                  <InputGroup.Checkbox className="mr-5" aria-label="Checkbox for following text input" name="poster" onChange={handleChange} />
+                  <Form.Label className="w-25 ">Share Poster</Form.Label>
                 </InputGroup>
                 <InputGroup className="checkbox mb-3 ms-1">
                   <InputGroup.Checkbox aria-label="Checkbox for following text input" name="payment" onChange={handleChange} />
-                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="Bukti Pembayaran" />
+                  <Form.Label className="w-25">Bukti Pembayaranr</Form.Label>
                 </InputGroup>
                 <InputGroup className="checkbox mb-3 ms-1">
                   <InputGroup.Checkbox aria-label="Checkbox for following text input" name="follow" onChange={handleChange} />
-                  <Form.Control className="checkbox-image" aria-label="Text with checkbox" value="SS Follow" />
+                  <Form.Label className="w-25">Bukti Screenshot Follow</Form.Label>
                 </InputGroup>
               </Form.Group>
               {/* button save */}
