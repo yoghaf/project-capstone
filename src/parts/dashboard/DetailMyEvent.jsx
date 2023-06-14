@@ -45,7 +45,7 @@ function DetailMyEvent() {
             <div className="col">
               <div className="row title-layout box-space-h">
                 <h1 className="event-title">
-                  <Link className="back-button" to="../"></Link>
+                  <Link className="back-button" to="/dashboard/myevent"></Link>
                   {event[0].name}
                 </h1>
               </div>

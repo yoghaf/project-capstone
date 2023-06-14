@@ -160,7 +160,7 @@ function EventRegis() {
               <button className="BackButton" onClick={handleBack}>
                 <img src="/images/content/material-symbols_arrow-back-ios-rounded.svg" alt="" />
               </button>
-              <div>Rise Togheter Campaign Volunter</div>
+              <div>{event?event[0].name:""}</div>
             </div>
             <div>
               <form className="FormControl" onSubmit={handleSubmit}>

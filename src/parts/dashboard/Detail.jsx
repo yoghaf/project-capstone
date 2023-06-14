@@ -11,11 +11,14 @@ function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
   let data_login = JSON.parse(sessionStorage.getItem("token"));
+  const [registered, setIdRegistered] = useState(null);
   
   useEffect(() => {
     const fetchEvent = async () => {
       const  event_liked  = await supabase.from("save").select(`id_event, id_save`).eq("id_akun", data_login.session.user.id);
+      const registered_event = await supabase.from("daftar").select().eq("id_akun", data_login.session.user.id).eq("id_event", id);
       const { data, error } = await supabase.from("event").select().eq("id_event", id);
+      
 
       if (error) {
         setFetchError("Could not fetch the events");
@@ -33,12 +36,18 @@ function Detail() {
             };
           })
         }
+
+        if(registered_event.data.length>0){  
+          setIdRegistered(registered_event.data)
+        }
         setFetchError(null);
       }
-
+      
     };
 
     fetchEvent();
+    
+
   }, [data_login.session.user.id, id, id_save, like]);
 
   function ButtonBookmark ({button, like, id_event, id_save}){
@@ -130,9 +139,13 @@ function Detail() {
               <div className="row box-space-h" style={{ padding: "0 20%" }}>
                 <div className="row button-area" style={{ padding: "0" }}>
                   <div className="button-area" style={{ padding: "5px", width: "90%" }}>
+                    {registered?<button id="register" className="text button-register" >
+                      SUDAH TERDAFTAR
+                    </button>
+                    :
                     <button id="register" className="text button-register" onClick={() => handleClick(event[0].id_event)}>
                       DAFTAR
-                    </button>
+                    </button>}
                   </div>
                   <div className="button-area" style={{ padding: "5px", width: "10%" }}>
                     <ButtonBookmark button={like?"bookmarked":"bookmark"} like={like} id_event={event[0].id_event} id_save={id_save}/>
