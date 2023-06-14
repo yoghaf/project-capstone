@@ -26,7 +26,7 @@ function Event() {
     };
 
     fetchEvent();
-  });
+  }, []);
 
   return (
     <div className="container">

@@ -97,6 +97,10 @@ function MyEvent() {
         }
         setUserId(data?.session?.user?.id)
         handleGetMyEvent(data?.session?.user?.id);
+
+        if(error){
+          console.log(error)
+        }
       } catch (error) {
         console.log("error get session");
       }

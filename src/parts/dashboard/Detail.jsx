@@ -16,7 +16,7 @@ function Detail() {
     const fetchEvent = async () => {
       const  event_liked  = await supabase.from("save").select(`id_event, id_save`).eq("id_akun", data_login.session.user.id);
       const { data, error } = await supabase.from("event").select().eq("id_event", id);
-      
+
       if (error) {
         setFetchError("Could not fetch the events");
         setEvent(null);
