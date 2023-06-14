@@ -14,7 +14,7 @@ function Event() {
       if (error) {
         setFetchError("Could not fetch the events");
         setEvents(null);
-        console.log(error);
+        console.log(fetchError);
       }
       if (data) {
         setEvents(data);

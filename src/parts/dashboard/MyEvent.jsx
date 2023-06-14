@@ -93,6 +93,10 @@ function MyEvent() {
         const { data, error } = await supabase.auth.getSession();
         setUserId(data?.session?.user?.id)
         handleGetMyEvent(data?.session?.user?.id);
+
+        if(error){
+          console.log(error)
+        }
       } catch (error) {
         console.log("error get session");
       }
@@ -120,6 +124,10 @@ function MyEvent() {
   // handle delete data
   const handleDeleteMyEvent =  async () => {
     const { error } = await supabase.from("event").delete().eq("id", handleId);
+
+    if(error){
+      console.log(error)
+    }
     handleGetMyEvent(userId)
     setModalShow(false);
     setHandleId(null);
@@ -154,7 +162,7 @@ function MyEvent() {
         </Col>
       </Row>
       <center>
-        {data == [] ? (
+        {data === [] ? (
           <Card className="w-25 mt-4 mb-4">
             <Card.Body>Tidak ada data</Card.Body>
           </Card>
