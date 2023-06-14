@@ -25,7 +25,7 @@ function Detail() {
       if (data) {
         setEvent(data)
         if(event_liked){
-          event_liked.data.map((liked) => {
+          event_liked.data.forEach((liked) => {
             if(liked.id_event === data[0].id_event){
               setLike(true);
               setIdSave(liked.id_save)
@@ -39,7 +39,7 @@ function Detail() {
     };
 
     fetchEvent();
-  }, [id, id_save]);
+  }, [data_login.session.user.id, id, id_save, like]);
 
   function ButtonBookmark ({button, like, id_event, id_save}){
     const handleBokmark = async (like,id_save) => {
