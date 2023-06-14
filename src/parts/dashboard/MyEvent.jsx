@@ -91,6 +91,10 @@ function MyEvent() {
     async function getSession() {
       try {
         const { data, error } = await supabase.auth.getSession();
+
+        if(error){
+          console.log(error)
+        }
         setUserId(data?.session?.user?.id)
         handleGetMyEvent(data?.session?.user?.id);
 
