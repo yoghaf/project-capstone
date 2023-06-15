@@ -239,7 +239,7 @@ function MyEvent() {
                   return (
                     <tr key={i}>
                       <td align="left">
-                        <Link className="text-black" to={"/dashboard/myevent/" + item.id}>
+                        <Link className="text-black" to={"/dashboard/myevent/" + item.id_event}>
                           {item.name}
                         </Link>
                       </td>

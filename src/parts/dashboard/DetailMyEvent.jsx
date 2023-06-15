@@ -13,7 +13,7 @@ function DetailMyEvent() {
   const { id } = useParams();
   useEffect(() => {
     const fetchEvent = async () => {
-      const { data, error } = await supabase.from("event").select().eq("id", id);
+      const { data, error } = await supabase.from("event").select().eq("id_event", id);
 
       if (error) {
         setFetchError("Could not fetch the events");
@@ -26,7 +26,7 @@ function DetailMyEvent() {
         setFetchError(null);
       }
 
-      const peserta = await supabase.from("daftar").select().eq("id-event", id);
+      const peserta = await supabase.from("daftar").select().eq("id_event", id);
       if (peserta) {
         setParticipants(peserta.data);
         setFetchError(null);
@@ -45,7 +45,7 @@ function DetailMyEvent() {
             <div className="col">
               <div className="row title-layout box-space-h">
                 <h1 className="event-title">
-                  <Link className="back-button" to="../"></Link>
+                  <Link className="back-button" to="/dashboard/myevent"></Link>
                   {event[0].name}
                 </h1>
               </div>
