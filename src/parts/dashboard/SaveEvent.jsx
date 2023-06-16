@@ -35,7 +35,7 @@ function Event() {
 
       <div className="row">
         <div className="row  row-gap-5 ">
-          {!events? <p>Tidak ada event yang disimpan</p>
+          {!events || events.length === 0? <p>Tidak ada event yang disimpan</p>
           :events.map((event) => (
             <div className="col-lg-4 " key={event.event.id_event}>
               <CardEvent key={event.event.id_event} image={event.event.image} title={event.event.name} description={event.event.description} link={`/dashboard/event/${event.event.id_event}`} />

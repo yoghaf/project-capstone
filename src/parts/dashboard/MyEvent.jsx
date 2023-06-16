@@ -187,14 +187,7 @@ function MyEvent() {
   return (
     <div>
       <Row className="seacrhAdd mt-4">
-        <Col className="me-auto ms-0" xs={10} md={10}>
-          <div className="card-search">
-            <Form className="search-box">
-              <CiSearch className="search-icon" />
-              <Form.Control type="search" icon="fa-search" placeholder="Search Event" aria-label="Search" className="search-input" />
-            </Form>
-          </div>
-        </Col>
+        
         <Col className="ms-auto me-0" xs={1} md={1}>
           <Button className="buttonAdd" size="sm" variant="success" onClick={handleAdd}>
             <BsPlus />

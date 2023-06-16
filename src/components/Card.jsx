@@ -9,7 +9,7 @@ function CardEvent({ image, title, description, link}) {
             <Link to={link} >
               <Card.Title>{title}</Card.Title>
             </Link>
-            <Card.Text>{description}</Card.Text>
+            <Card.Text className="card_desc">{description}</Card.Text>
           </Card.Body>
     </Card>
   );

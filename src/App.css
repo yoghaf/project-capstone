@@ -40,3 +40,8 @@
 a {
   text-decoration: none;
 }
+
+.card_desc{
+  height:200px;
+  overflow:hidden;
+}
