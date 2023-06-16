@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -32,22 +34,10 @@ function MyEvent() {
   const [showModalAdd, setShowModalAdd] = useState(false);
   // state data
 
-  const [data, setData] = useState([]);
-
-  // handle save event
-  // const handleSaveEvent = () => {
-  //   let number = data.length;
-  //   setData(
-  //     data.concat({
-  //       id: number + 1,
-  //       activity: description,
-  //       audience: 0,
-  //       status: "live",
-  //     })
-  //   );
-  //   setShowModalAdd(false);
-  // };
-
+  const [datas, setData] = useState([]);
+  const [daftar, setDaftar] = useState([]);
+  
+ 
   useEffect(() => {
     // id_akun
 
@@ -55,19 +45,25 @@ function MyEvent() {
     const fetchDataMyEvent = async () => {
       const id_akun = JSON.parse(sessionStorage.getItem("token")).user.id;
 
-      const { data, error } = await supabase.from("event").select("*").eq("id_akun", id_akun);
-
+      const { data, error } = await supabase.from("event").select("*").eq("id_akun", id_akun).order('created_at', { ascending: true });
+      const daftar_data = await supabase.from("daftar").select("*")
       if (error) {
         setData([]);
         console.log(error);
       }
       if (data) {
         setData(data);
+        
+      }
+
+      if(daftar_data){
+        setDaftar(daftar_data.data)
       }
     };
     fetchDataMyEvent();
   }, []);
 
+  
   // handlechange
   const handleChange = async (e) => {
     const { name, value, type, checked } = e.target;
@@ -206,7 +202,7 @@ function MyEvent() {
         </Col>
       </Row>
       <center>
-        {data === [] ? (
+        {datas === []? (
           <Card className="w-25 mt-4 mb-4">
             <Card.Body>Tidak ada data</Card.Body>
           </Card>
@@ -220,11 +216,16 @@ function MyEvent() {
                   <th>STATUS</th>
                   <th>AKSI</th>
                 </tr>
-                {data.map((item, i) => {
+                {datas.map( (item, i) => {
+                  
+                  if(daftar){
+                    var filteredArray = daftar.filter((n)=>{
+                      return n.id_event === item.id_event
+                    });
+                  }
                   const startDate = new Date(item["event-start"]);
                   const endDate = new Date(item["event-end"]);
                   const currentDate = new Date();
-
                   const getStatus = () => {
                     if (currentDate >= startDate && currentDate <= endDate) {
                       return "live";
@@ -243,7 +244,7 @@ function MyEvent() {
                           {item.name}
                         </Link>
                       </td>
-                      <td>{item?.audience}</td>
+                      <td>{filteredArray.length}</td>
                       {status === "live" ? (
                         <td
                           style={{
