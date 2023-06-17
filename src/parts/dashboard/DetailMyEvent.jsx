@@ -154,7 +154,7 @@ function DetailMyEvent() {
                       <td>{participant.domicile}</td>
                       {
                         event[0]["poster"]?(
-                          <td className="bukti_gambar"><img src={participant["poster_img_url"]}></img></td>
+                          <td className="bukti_gambar"><img alt="poster" src={participant["poster_img_url"]}></img></td>
                         )
                         :(
                           <></>
@@ -162,7 +162,7 @@ function DetailMyEvent() {
                       }
                       {
                         event[0]["follow"]?(
-                          <td className="bukti_gambar"><img src={participant["follow_img_url"]}></img></td>
+                          <td className="bukti_gambar"><img alt="follow" src={participant["follow_img_url"]}></img></td>
                         )
                         :(
                           <></>
@@ -170,7 +170,7 @@ function DetailMyEvent() {
                       }
                       {
                         event[0]["payment"]?(
-                          <td className="bukti_gambar"><img src={participant["payment_img_url"]}></img></td>
+                          <td className="bukti_gambar"><img alt="payment" src={participant["payment_img_url"]}></img></td>
                         )
                         :(
                           <></>
