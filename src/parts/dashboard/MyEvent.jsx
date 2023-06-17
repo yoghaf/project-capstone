@@ -356,7 +356,7 @@ function MyEvent() {
               </Form.Group>
               {/* province */}
               <Form.Group className="d-flex mb-2 mt-2">
-                <Form.Label className="w-25">City</Form.Label>
+                <Form.Label className="w-25">Provinsi</Form.Label>
                 <Form.Select className="w-100" placeholder="" name="province" onChange={handleChange}>
                   <option>Select Province</option>
                   {province.map((item, i) => {
