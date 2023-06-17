@@ -11,7 +11,6 @@ import Modal from "react-bootstrap/Modal";
 import Row from "react-bootstrap/Row";
 import Table from "react-bootstrap/Table";
 import { BsPlus } from "react-icons/bs";
-import { CiSearch } from "react-icons/ci";
 import InputGroup from "react-bootstrap/InputGroup";
 import "../../assets/fonts/Nunito-Bold.ttf";
 import "../../assets/style/myevent.css";
