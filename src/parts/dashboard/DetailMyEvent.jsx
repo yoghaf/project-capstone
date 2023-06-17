@@ -110,17 +110,72 @@ function DetailMyEvent() {
                 <th>EMAIL</th>
                 <th>NO.TELP</th>
                 <th>DOMISILI</th>
+                {!event?(
+                  <></>
+                )
+                :(<>
+                  {event[0]["poster"]?(
+                      <th className="bukti_gambar">POSTER</th>
+                    )
+                    :(
+                      <></>
+                    )
+                  }
+                  {
+                    event[0]["follow"]?(
+                      <th className="bukti_gambar">FOLLOW</th>
+                    )
+                    :(
+                      <></>
+                    )
+                  }
+                  {
+                    event[0]["payment"]?(
+                      <th className="bukti_gambar">PEMBAYARAN</th>
+                    )
+                    :(
+                      <></>
+                    )
+                  }
+                  </>
+                )
+
+                }
               </tr>
               {!participants ? (
                 <p>Belum ada peserta yang mendaftar</p>
               ) : (
                 participants.map((participant, i) => {
                   return (
-                    <tr>
+                    <tr className="rowparticipant">
                       <td align="left">{participant.name}</td>
                       <td>{participant.email}</td>
                       <td>{participant.notelp}</td>
                       <td>{participant.domicile}</td>
+                      {
+                        event[0]["poster"]?(
+                          <td className="bukti_gambar"><img src={participant["poster_img_url"]}></img></td>
+                        )
+                        :(
+                          <></>
+                        )
+                      }
+                      {
+                        event[0]["follow"]?(
+                          <td className="bukti_gambar"><img src={participant["follow_img_url"]}></img></td>
+                        )
+                        :(
+                          <></>
+                        )
+                      }
+                      {
+                        event[0]["payment"]?(
+                          <td className="bukti_gambar"><img src={participant["payment_img_url"]}></img></td>
+                        )
+                        :(
+                          <></>
+                        )
+                      }
                     </tr>
                   );
                 })

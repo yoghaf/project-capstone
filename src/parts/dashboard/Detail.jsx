@@ -12,7 +12,8 @@ function Detail() {
   const navigate = useNavigate();
   let data_login = JSON.parse(sessionStorage.getItem("token"));
   const [registered, setIdRegistered] = useState(null);
-  
+  const currentDate = new Date();
+  let event_date;
   useEffect(() => {
     const fetchEvent = async () => {
       const  event_liked  = await supabase.from("save").select(`id_event, id_save`).eq("id_akun", data_login.session.user.id);
@@ -27,6 +28,9 @@ function Detail() {
       }
       if (data) {
         setEvent(data)
+        if(event){
+          event_date = new Date(event[0]["regist-end"]);
+        }
         if(event_liked){
           event_liked.data.forEach((liked) => {
             if(liked.id_event === data[0].id_event){
@@ -139,13 +143,21 @@ function Detail() {
               <div className="row box-space-h" style={{ padding: "0 20%" }}>
                 <div className="row button-area" style={{ padding: "0" }}>
                   <div className="button-area" style={{ padding: "5px", width: "90%" }}>
-                    {registered?<button id="register" className="text button-register" >
+                    {currentDate > event_date?(
+                        <button id="register" className="text button-register" >
+                      SUDAH SELESAI
+                      </button>
+                      )
+                      :(registered?<button id="register" className="text button-register" >
                       SUDAH TERDAFTAR
-                    </button>
-                    :
-                    <button id="register" className="text button-register" onClick={() => handleClick(event[0].id_event)}>
-                      DAFTAR
-                    </button>}
+                      </button>
+                      :
+                      <button id="register" className="text button-register" onClick={() => handleClick(event[0].id_event)}>
+                        DAFTAR
+                      </button>
+                      )
+                      
+                    }
                   </div>
                   <div className="button-area" style={{ padding: "5px", width: "10%" }}>
                     <ButtonBookmark button={like?"bookmarked":"bookmark"} like={like} id_event={event[0].id_event} id_save={id_save}/>
