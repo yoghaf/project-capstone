@@ -1,3 +1,4 @@
+// credit Bootstrap 5.2
 import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 

@@ -1,3 +1,4 @@
+// credit Bootstrap 5.2
 import "../../assets/style/nav.css";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';

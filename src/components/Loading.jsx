@@ -1,3 +1,4 @@
+// credit Bootstrap 5.2
 import React from "react";
 import { Spinner } from "react-bootstrap";
 
